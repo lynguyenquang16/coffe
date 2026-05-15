@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bruin - Coffee Shop</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="/css/dripicons.css" />
+    <link rel="stylesheet" href="/css/slick.css" />
+    <link rel="stylesheet" href="/css/meanmenu.css" />
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!--
+      THỨ TỰ QUAN TRỌNG:
+      1. jQuery + plugins phải load TRƯỚC (không defer) để window.$ có sẵn
+      2. React (module) load song song nhưng chạy sau khi DOM ready
+      3. main.js của template BỎ đi — React sẽ tự init plugins qua useEffect
+    -->
+
+    <!-- jQuery core - KHÔNG defer, phải có trước tất cả -->
+    <script src="/js/vendor/jquery-3.6.0.min.js"></script>
+
+    <!-- Plugins - defer OK vì jQuery đã có sẵn -->
+    <script src="/js/vendor/modernizr-3.5.0.min.js" defer></script>
+    <script src="/js/popper.min.js" defer></script>
+    <script src="/js/bootstrap.min.js" defer></script>
+    <script src="/js/slick.min.js" defer></script>
+    <script src="/js/ajax-form.js" defer></script>
+    <script src="/js/paroller.js" defer></script>
+    <script src="/js/wow.min.js" defer></script>
+    <script src="/js/js_isotope.pkgd.min.js" defer></script>
+    <script src="/js/imagesloaded.min.js" defer></script>
+    <script src="/js/parallax.min.js" defer></script>
+    <script src="/js/jquery.waypoints.min.js" defer></script>
+    <script src="/js/jquery.counterup.min.js" defer></script>
+    <script src="/js/jquery.scrollUp.min.js" defer></script>
+    <script src="/js/jquery.meanmenu.min.js" defer></script>
+    <script src="/js/parallax-scroll.js" defer></script>
+    <script src="/js/jquery.magnific-popup.min.js" defer></script>
+    <script src="/js/element-in-view.js" defer></script>
+
+    <!-- BỎ main.js của template — React hook sẽ thay thế -->
+    <!-- <script src="/js/main.js" defer></script> -->
+
+    <!-- React - load sau jQuery -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
