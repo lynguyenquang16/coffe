@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
+import Breadcrumb from "../components/Breadcrumb";
 
 function OrderSuccessModal({ onClose }: { onClose: () => void }) {
   return (
@@ -67,8 +68,7 @@ function OrderSuccessModal({ onClose }: { onClose: () => void }) {
             lineHeight: 1.6,
           }}
         >
-          Đơn hàng của bạn sẽ được giao trong thời gian sớm nhất. Chúng tôi sẽ
-          liên hệ xác nhận qua số điện thoại của bạn.
+          Sản phẩm của quý khách sẽ được giao trong thời gian sớm nhất.
         </p>
         <Link
           to="/"
@@ -105,38 +105,7 @@ function Cart() {
     <main>
       {showModal && <OrderSuccessModal onClose={() => setShowModal(false)} />}
 
-      {/* breadcrumb */}
-      <section
-        className="breadcrumb-area d-flex align-items-center"
-        style={{ backgroundImage: "url(img/bg/bdrc-bg.jpg)" }}
-      >
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-12 col-lg-12">
-              <div className="breadcrumb-wrap text-center">
-                <div className="breadcrumb-title">
-                  <h2>Giỏ Hàng</h2>
-                  <div className="breadcrumb-wrap">
-                    <nav aria-label="breadcrumb">
-                      <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                          <Link to="/">Home</Link>
-                        </li>
-                        <li
-                          className="breadcrumb-item active"
-                          aria-current="page"
-                        >
-                          Giỏ Hàng
-                        </li>
-                      </ol>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Breadcrumb title="Giỏ Hàng" />
 
       {/* cart content */}
       <section className="shop-area pt-120 pb-120 p-relative">

@@ -7,7 +7,7 @@ function Footer() {
         className="footer-top pt-90 pb-40"
         style={{
           backgroundColor: "#3f271e",
-          backgroundImage: "url(img/bg/footer-bg.png)",
+          backgroundImage: "url(/img/bg/footer-bg.png)",
         }}
       >
         <div className="container">
@@ -15,7 +15,7 @@ function Footer() {
             <div className="col-xl-4 col-lg-4 col-sm-6">
               <div className="footer-widget mb-30">
                 <div className="f-widget-title mb-30">
-                  <img src="img/logo/logo.png" alt="img" />
+                  <img src="/img/logo/logo.png" alt="img" />
                 </div>
                 <div className="f-contact">
                   <ul>

@@ -1,3 +1,6 @@
+import React from "react";
+import { Link } from "react-router-dom"; // Thêm dòng này để xử lý triệt để lỗi thẻ <Link>
+
 function ServiceDetail() {
   return (
     <main>
@@ -16,7 +19,7 @@ function ServiceDetail() {
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                          <a href="index.html">Home</a>
+                          <Link to="/">Home</Link>
                         </li>
                         <li
                           className="breadcrumb-item active"
@@ -34,6 +37,7 @@ function ServiceDetail() {
         </div>
       </section>
       {/* breadcrumb-area-end */}
+
       {/* service-details-area */}
       <div className="about-area5 about-p p-relative">
         <div className="container pt-120 pb-90">
@@ -48,26 +52,27 @@ function ServiceDetail() {
                     {/* Services Category */}
                     <ul className="services-categories">
                       <li>
-                        <a href="single-service.html">Electrical system </a>
+                        <Link to="/services">Electrical system </Link>
                       </li>
                       <li className="active">
-                        <a href="single-service.html">Tire and wheel </a>
+                        <Link to="/services">Tire and wheel </Link>
                       </li>
                       <li>
-                        <a href="single-service.html">System service </a>
+                        <Link to="/services">System service </Link>
                       </li>
                       <li>
-                        <a href="single-service.html">Engine diagnostics </a>
+                        <Link to="/services">Engine diagnostics </Link>
                       </li>
                       <li>
-                        <a href="single-service.html"> Drivability problems </a>
+                        <Link to="/services"> Drivability problems </Link>
                       </li>
                       <li>
-                        <a href="single-service.html">Accident Insurance</a>
+                        <Link to="/services">Accident Insurance</Link>
                       </li>
                     </ul>
                   </div>
                 </div>
+
                 {/*Service Contact*/}
                 <div
                   className="service-detail-contact wow fadeup-animation"
@@ -76,13 +81,14 @@ function ServiceDetail() {
                   <h3 className="h3-title">
                     If You Need Any Help Contact With Us
                   </h3>
-                  <a href="javascript:void(0);" title="Call now">
+                  <span style={{ color: "#c8a96e", fontWeight: "bold" }}>
                     +91 705 2101 786
-                  </a>
+                  </span>
                 </div>
               </aside>
             </div>
             {/* #right side end */}
+
             <div className="col-lg-8 col-md-12 col-sm-12 order-2">
               <div className="service-detail">
                 <div className="content-box">
@@ -97,6 +103,7 @@ function ServiceDetail() {
                     rationally Nor who loves or pursues or desires to obtain
                     pain of itself.
                   </p>
+
                   {/* Two Column */}
                   <div className="two-column">
                     <div className="row">
@@ -112,6 +119,7 @@ function ServiceDetail() {
                       </div>
                     </div>
                   </div>
+
                   <h3>Why Choose This Service</h3>
                   <p>
                     Complete account of the systems and expound the actually
@@ -129,6 +137,7 @@ function ServiceDetail() {
                     but because those who do not know how to pursue pleasure
                     rationally.
                   </p>
+
                   <h3>We guarantee to deliver</h3>
                   <p>
                     Quam parturient mi amet curae augue varius laoreet vehicula
@@ -142,6 +151,7 @@ function ServiceDetail() {
                     enim vis metus cras fusce lectus sed luctus quis Clas nisl
                     blandit parturient molestie praesent nec
                   </p>
+
                   {/* Two Column */}
                   <div className="two-column">
                     <div className="row">
@@ -152,6 +162,7 @@ function ServiceDetail() {
                       </div>
                     </div>
                   </div>
+
                   <p>
                     Phasellus hac phasellus consequat malesuada veler aliquam
                     dictumst amet a phasellus lacinia integer curabitur duis.
@@ -174,4 +185,5 @@ function ServiceDetail() {
     </main>
   );
 }
+
 export default ServiceDetail;

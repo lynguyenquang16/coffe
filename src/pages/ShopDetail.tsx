@@ -1,4 +1,31 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Bản vá: Thêm dòng này để hết gạch đỏ thẻ <Link>
+import { toast } from "react-toastify";
+import { useCart } from "./CartContext";
+
 function ShopDetail() {
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = (e: React.FormEvent) => {
+    e.preventDefault();
+    addToCart(
+      {
+        id: 99, // Trong thực tế, ID này nên lấy từ URL hoặc props
+        name: "Helios Piranho Lamp",
+        price: 700.0,
+        oldPrice: 820.0,
+        image: "/img/shop/details/large1.jpg",
+        category: "furniture",
+      },
+      quantity,
+    );
+    toast.success("🛒 Đã thêm " + quantity + " sản phẩm vào giỏ hàng!", {
+      theme: "colored",
+      icon: "☕",
+    });
+  };
+
   return (
     <main>
       {/* breadcrumb-area */}
@@ -16,13 +43,13 @@ function ShopDetail() {
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                          <a href="index.html">Home</a>
+                          <Link to="/">Home</Link>
                         </li>
                         <li
                           className="breadcrumb-item active"
                           aria-current="page"
                         >
-                          Shop Details{" "}
+                          Shop Details
                         </li>
                       </ol>
                     </nav>
@@ -34,6 +61,7 @@ function ShopDetail() {
         </div>
       </section>
       {/* breadcrumb-area-end */}
+
       {/* shop-banner-area start */}
       <section
         className="shop-banner-area pt-120 pb-90 "
@@ -54,7 +82,7 @@ function ShopDetail() {
                       role="tab"
                       aria-selected="true"
                     >
-                      <img src="img/shop/details/thumb1.jpg" alt="" />{" "}
+                      <img src="/img/shop/details/thumb1.jpg" alt="" />
                     </a>
                   </li>
                   <li className="nav-item">
@@ -66,7 +94,7 @@ function ShopDetail() {
                       role="tab"
                       aria-selected="false"
                     >
-                      <img src="img/shop/details/thumb2.jpg" alt="" />
+                      <img src="/img/shop/details/thumb2.jpg" alt="" />
                     </a>
                   </li>
                   <li className="nav-item">
@@ -78,7 +106,7 @@ function ShopDetail() {
                       role="tab"
                       aria-selected="false"
                     >
-                      <img src="img/shop/details/thumb3.jpg" alt="" />
+                      <img src="/img/shop/details/thumb3.jpg" alt="" />
                     </a>
                   </li>
                 </ul>
@@ -91,17 +119,17 @@ function ShopDetail() {
                     role="tabpanel"
                   >
                     <div className="product-large-img">
-                      <img src="img/shop/details/large1.jpg" alt="" />
+                      <img src="/img/shop/details/large1.jpg" alt="" />
                     </div>
                   </div>
                   <div className="tab-pane fade" id="profile" role="tabpanel">
                     <div className="product-large-img">
-                      <img src="img/shop/details/large2.jpg" alt="" />
+                      <img src="/img/shop/details/large2.jpg" alt="" />
                     </div>
                   </div>
                   <div className="tab-pane fade" id="profile1" role="tabpanel">
                     <div className="product-large-img">
-                      <img src="img/shop/details/large3.jpg" alt="" />
+                      <img src="/img/shop/details/large3.jpg" alt="" />
                     </div>
                   </div>
                 </div>
@@ -126,14 +154,18 @@ function ShopDetail() {
                 </p>
                 <div className="product-cat mt-30 mb-30">
                   <span>Category: </span>
-                  <a href="#">furniture,</a>
-                  <a href="#">decor</a>
+                  <a href="#">furniture,</a> <a href="#">decor</a>
                 </div>
                 <div className="product-details-action">
-                  <form action="#">
+                  <form onSubmit={handleAddToCart}>
                     <div className="plus-minus">
                       <div className="cart-plus-minus">
-                        <input type="text" defaultValue={1} />
+                        <input
+                          type="number"
+                          value={quantity}
+                          onChange={(e) => setQuantity(Number(e.target.value))}
+                          min="1"
+                        />
                       </div>
                     </div>
                     <button className="btn btn-black" type="submit">
@@ -164,6 +196,7 @@ function ShopDetail() {
         </div>
       </section>
       {/* shop-banner-area end */}
+
       {/* product-desc-area start */}
       <section className="product-desc-area pb-55">
         <div className="container">
@@ -182,10 +215,10 @@ function ShopDetail() {
                       data-bs-toggle="tab"
                       href="#id-desc"
                       role="tab"
-                      aria-bs-controls="home"
+                      aria-controls="home"
                       aria-selected="true"
                     >
-                      Description{" "}
+                      Description
                     </a>
                   </li>
                   <li className="nav-item">
@@ -195,7 +228,7 @@ function ShopDetail() {
                       data-bs-toggle="tab"
                       href="#id-add"
                       role="tab"
-                      aria-bs-controls="profile"
+                      aria-controls="profile"
                       aria-selected="false"
                     >
                       Additional Information
@@ -208,7 +241,7 @@ function ShopDetail() {
                       data-bs-toggle="tab"
                       href="#id-rev"
                       role="tab"
-                      aria-bs-controls="profile"
+                      aria-controls="profile"
                       aria-selected="false"
                     >
                       Reviews(10)
@@ -346,4 +379,5 @@ function ShopDetail() {
     </main>
   );
 }
+
 export default ShopDetail;

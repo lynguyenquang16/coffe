@@ -1,7 +1,42 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../pages/CartContext";
+
 function Header() {
   const { totalItems } = useCart();
+  const location = useLocation();
+
+  useEffect(() => {
+    const $ = (window as any).$;
+    if (!$) return;
+
+    // Khởi tạo Mobile Menu (MeanMenu)
+    const mobileMenu = $("#mobile-menu");
+    if (mobileMenu.length > 0) {
+      mobileMenu.meanmenu({
+        meanMenuContainer: ".mobile-menu",
+        meanScreenWidth: "992",
+      });
+    }
+
+    // Hiệu ứng Sticky Header khi cuộn
+    const handleScroll = () => {
+      const scroll = $(window).scrollTop();
+      if (scroll < 245) {
+        $("#header-sticky").removeClass("sticky-menu");
+      } else {
+        $("#header-sticky").addClass("sticky-menu");
+      }
+    };
+
+    $(window).on("scroll", handleScroll);
+
+    return () => {
+      $(window).off("scroll", handleScroll);
+      // Xóa menu mobile cũ khi component unmount hoặc chuyển trang để tránh bị lặp
+      $(".mean-container").remove();
+    };
+  }, [location]); // Chạy lại khi chuyển trang để reset menu mobile
 
   return (
     <header className="header-area header-three">
@@ -51,7 +86,7 @@ function Header() {
               <div className="col-xl-2 col-lg-2">
                 <div className="logo">
                   <Link to="/">
-                    <img src="img/logo/logo.png" alt="logo" />
+                    <img src="/img/logo/logo.png" alt="logo" />
                   </Link>
                 </div>
               </div>
@@ -88,7 +123,9 @@ function Header() {
                         </ul>
                       </li>
                       <li className="has-sub">
-                        <Link to="#">Pages</Link>
+                        <Link to="#" onClick={(e) => e.preventDefault()}>
+                          Pages
+                        </Link>
                         <ul>
                           <li>
                             <Link to="/gallery">Gallery</Link>

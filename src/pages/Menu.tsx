@@ -1,255 +1,128 @@
+import { Link } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
+import Newsletter from "../components/Newsletter";
+
+const menuItems = [
+  {
+    id: 1,
+    name: "Coffe Latte",
+    price: "12.90",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img1.jpg",
+  },
+  {
+    id: 2,
+    name: "Coffe Americano",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img2.jpg",
+  },
+  {
+    id: 3,
+    name: "Macchiato",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img3.jpg",
+  },
+  {
+    id: 4,
+    name: "Coffe Mocha",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img4.jpg",
+  },
+  {
+    id: 5,
+    name: "Cappuccino",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img5.jpg",
+  },
+  {
+    id: 6,
+    name: "Iced Coffe",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img6.jpg",
+  },
+  {
+    id: 7,
+    name: "Chocolate Mocha",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img7.jpg",
+  },
+  {
+    id: 8,
+    name: "Vanilla Latte",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img8.jpg",
+  },
+  {
+    id: 9,
+    name: "Iced Latte",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img1.jpg",
+  },
+  {
+    id: 10,
+    name: "Espresso",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img3.jpg",
+  },
+  {
+    id: 11,
+    name: "Caramel Latte",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img5.jpg",
+  },
+  {
+    id: 12,
+    name: "Cortado",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img7.jpg",
+  },
+];
+
 function Menu() {
   return (
     <main>
-      {/* breadcrumb-area */}
-      <section
-        className="breadcrumb-area d-flex align-items-center"
-        style={{ backgroundImage: "url(img/bg/bdrc-bg.jpg)" }}
-      >
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-12 col-lg-12">
-              <div className="breadcrumb-wrap text-center">
-                <div className="breadcrumb-title">
-                  <h2>Our Menu</h2>
-                  <div className="breadcrumb-wrap">
-                    <nav aria-label="breadcrumb">
-                      <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                          <a href="index.html">Home</a>
-                        </li>
-                        <li
-                          className="breadcrumb-item active"
-                          aria-current="page"
-                        >
-                          Our Menu
-                        </li>
-                      </ol>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* breadcrumb-area-end */}
+      <Breadcrumb title="Our Menu" />
+
       {/* Meal-area-start */}
       <section className="meal-select-section pt-120 pb-90 p-relative">
         <div className="animations-02">
-          <img src="img/bg/an-img-04.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-04.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-12 col-md-12">
               <div className="populer-meal">
                 <ul>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img1.jpg" alt="img" />
+                  {menuItems.map((item) => (
+                    <li key={item.id}>
+                      <div className="meal-container">
+                        <div className="meal-img">
+                          <img src={item.img} alt={item.name} />
+                        </div>
+                        <div className="meal-content">
+                          <h5>{item.name}</h5>
+                          <p>{item.desc}</p>
+                        </div>
+                        <div className="line">
+                          <hr />
+                        </div>
+                        <div className="meal-price">
+                          <strong>${item.price}</strong>
+                        </div>
                       </div>
-                      <div className="meal-content">
-                        <h5>Coffe Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$12.90</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img2.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Coffe Americano</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img3.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Macchiato</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img4.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Coffe Mocha</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img5.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Cappuccino</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img6.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Iced Coffe</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img7.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Chocolate Mocha</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img8.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Vanilla Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img1.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Iced Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img3.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Espresso</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img5.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Caramel Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img7.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>
-                          <strong> Cortado </strong>
-                        </h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -263,7 +136,7 @@ function Menu() {
         style={{ backgroundColor: "#f7f5f1" }}
       >
         <div className="animations-01">
-          <img src="img/bg/an-img-04.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-04.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row">
@@ -271,7 +144,7 @@ function Menu() {
               <div className="section-title center-align mb-50 text-center">
                 <h5>
                   <span className="circle-left">
-                    <img src="img/bg/circle-left.png" alt="img" />
+                    <img src="/img/bg/circle-left.png" alt="img" />
                   </span>{" "}
                   Our Online Shop
                 </h5>
@@ -289,16 +162,16 @@ function Menu() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
-                    <img src="img/shop/img1.jpg" alt="" />
-                  </a>
+                  <Link to="/shop-detail">
+                    <img src="/img/shop/img1.jpg" alt="" />
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Caramel Macchiato</a>
+                    <Link to="/shop-detail">Caramel Macchiato</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>

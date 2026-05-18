@@ -1,4 +1,31 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 function Blog() {
+  useEffect(() => {
+    const $ = (window as any).$;
+    if ($ && $(".blog-active").length > 0) {
+      $(".blog-active").slick({
+        dots: false,
+        infinite: true,
+        arrows: true,
+        speed: 1500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: true,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="fas fa-arrow-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="fas fa-arrow-right"></i></button>',
+      });
+    }
+
+    return () => {
+      if ($ && $(".blog-active").hasClass("slick-initialized"))
+        $(".blog-active").slick("unslick");
+    };
+  }, []);
+
   return (
     <>
       <main>
@@ -74,15 +101,15 @@ function Blog() {
               <div className="col-lg-8">
                 <div className="bsingle__post mb-50">
                   <div className="bsingle__post-thumb">
-                    <img src="img/blog/inner_b1.jpg" alt="" />
+                    <img src="/img/blog/inner_b1.jpg" alt="" />
                   </div>
                   <div className="bsingle__content">
                     <div className="date-home">24th March 2022</div>
                     <h2>
-                      <a href="blog-details.html">
+                      <Link to="/blog-detail">
                         Lorem ipsum dolor sit amet, consectetur cing elit, sed
                         do eiusmod tempor.
-                      </a>
+                      </Link>
                     </h2>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -93,13 +120,13 @@ function Blog() {
                       voluptate velit esse.
                     </p>
                     <div className="blog__btn">
-                      <a href="#">Read More</a>
+                      <Link to="/blog-detail">Read More</Link>
                     </div>
                   </div>
                 </div>
                 <div className="bsingle__post mb-50">
                   <div className="bsingle__post-thumb video-p">
-                    <img src="img/blog/inner_b2.jpg" alt="" />
+                    <img src="/img/blog/inner_b2.jpg" alt="" />
                     <a
                       href="https://www.youtube.com/watch?v=vKSA_idPZkc"
                       className="video-i popup-video"
@@ -110,10 +137,10 @@ function Blog() {
                   <div className="bsingle__content">
                     <div className="date-home">24th March 2022</div>
                     <h2>
-                      <a href="blog-details.html">
+                      <Link to="/blog-detail">
                         There are many variations passages of like consectetur
                         lorem ipsum available.
-                      </a>
+                      </Link>
                     </h2>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -124,29 +151,29 @@ function Blog() {
                       voluptate velit esse.
                     </p>
                     <div className="blog__btn">
-                      <a href="#">Read More</a>
+                      <Link to="/blog-detail">Read More</Link>
                     </div>
                   </div>
                 </div>
                 <div className="bsingle__post mb-50">
                   <div className="bsingle__post-thumb blog-active">
                     <div className="slide-post">
-                      <img src="img/blog/inner_b3.jpg" alt="" />
+                      <img src="/img/blog/inner_b3.jpg" alt="" />
                     </div>
                     <div className="slide-post">
-                      <img src="img/blog/inner_b2.jpg" alt="" />
+                      <img src="/img/blog/inner_b2.jpg" alt="" />
                     </div>
                     <div className="slide-post">
-                      <img src="img/blog/inner_b1.jpg" alt="" />
+                      <img src="/img/blog/inner_b1.jpg" alt="" />
                     </div>
                   </div>
                   <div className="bsingle__content">
                     <div className="date-home">24th March 2022</div>
                     <h2>
-                      <a href="blog-details.html">
+                      <Link to="/blog-detail">
                         I must explain to you how all this mistaken idea of
                         denouncing pleasure.
-                      </a>
+                      </Link>
                     </h2>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -157,7 +184,7 @@ function Blog() {
                       voluptate velit esse.
                     </p>
                     <div className="blog__btn">
-                      <a href="#">Read More</a>
+                      <Link to="/blog-detail">Read More</Link>
                     </div>
                   </div>
                 </div>

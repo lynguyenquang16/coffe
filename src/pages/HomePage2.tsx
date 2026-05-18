@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function HomePage2() {
   return (
     <main>
@@ -27,22 +29,22 @@ function HomePage2() {
                       sed nisl tristique, commodo gravida lectus non.
                     </p>
                     <div className="slider-btn mt-30 mb-105">
-                      <a
-                        href="contact.html"
+                      <Link
+                        to="/contact"
                         className="btn ss-btn mr-15"
                         data-animation="fadeInLeft"
                         data-delay=".4s"
                       >
                         Book A Table
-                      </a>
-                      <a
-                        href="contact.html"
+                      </Link>
+                      <Link
+                        to="/shop"
                         className="btn ss-btn active"
                         data-animation="fadeInLeft"
                         data-delay=".4s"
                       >
                         Visit Our Shop
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -56,7 +58,7 @@ function HomePage2() {
       {/* about-area */}
       <section className="about-area about-p pt-120 pb-120 p-relative fix">
         <div className="animations-02">
-          <img src="img/bg/an-img-02.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-02.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row justify-content-center align-items-center">
@@ -66,9 +68,9 @@ function HomePage2() {
                 data-animation="fadeInLeft"
                 data-delay=".4s"
               >
-                <img src="img/features/about_img_02.png" alt="img" />
+                <img src="/img/features/about_img_02.png" alt="img" />
                 <div className="about-icon">
-                  <img src="img/features/about_img_03.png" alt="img" />
+                  <img src="/img/features/about_img_03.png" alt="img" />
                 </div>
               </div>
             </div>
@@ -81,7 +83,7 @@ function HomePage2() {
                 <div className="about-title second-title pb-25">
                   <h5>
                     <span className="circle-left">
-                      <img src="img/bg/circle-left.png" alt="img" />
+                      <img src="/img/bg/circle-left.png" alt="img" />
                     </span>{" "}
                     About Us
                   </h5>
@@ -106,18 +108,15 @@ function HomePage2() {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-md-6">
                       <div className="signature">
-                        <img src="img/features/signature.png" alt="img" />
+                        <img src="/img/features/signature.png" alt="img" />
                         <h3 className="mt-10">Vincent Smith</h3>
                       </div>
                     </div>
                     <div className="col-md-6 text-right">
                       <div className="slider-btn">
-                        <a
-                          href="about.html"
-                          className="btn ss-btn smoth-scroll"
-                        >
+                        <Link to="/about" className="btn ss-btn smoth-scroll">
                           Discover More
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

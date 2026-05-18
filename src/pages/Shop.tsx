@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
+import { toast } from "react-toastify";
+import Breadcrumb from "../components/Breadcrumb";
 
 const products = [
   {
@@ -84,43 +86,16 @@ function Shop() {
   const handleAddToCart = (product: (typeof products)[0]) => {
     addToCart(product);
     setAddedId(product.id);
+    toast.success(`Đã thêm ${product.name} vào giỏ hàng!`, {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
     setTimeout(() => setAddedId(null), 1500);
   };
 
   return (
     <main>
-      {/* breadcrumb-area */}
-      <section
-        className="breadcrumb-area d-flex align-items-center"
-        style={{ backgroundImage: "url(img/bg/bdrc-bg.jpg)" }}
-      >
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-xl-12 col-lg-12">
-              <div className="breadcrumb-wrap text-center">
-                <div className="breadcrumb-title">
-                  <h2>Shop</h2>
-                  <div className="breadcrumb-wrap">
-                    <nav aria-label="breadcrumb">
-                      <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                          <Link to="/">Home</Link>
-                        </li>
-                        <li
-                          className="breadcrumb-item active"
-                          aria-current="page"
-                        >
-                          Shop
-                        </li>
-                      </ol>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Breadcrumb title="Shop" />
 
       {/* shop-area */}
       <section className="shop-area pt-120 pb-120 p-relative">

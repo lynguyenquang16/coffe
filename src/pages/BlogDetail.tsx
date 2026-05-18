@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function BlogDetail() {
   return (
     <main>
@@ -158,7 +160,7 @@ function BlogDetail() {
                     incididunt.
                   </p>
                   <figure>
-                    <img src="img/blog/b_details02.jpg" alt="" />
+                    <img src="/img/blog/b_details02.jpg" alt="" />
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -209,9 +211,9 @@ function BlogDetail() {
                       </div>
                     </div>
                     <div className="col-xl-4 col-md-2 text-left text-md-center">
-                      <a href="blog.html" className="blog-filter">
-                        <img src="img/icon/c_d01.png" alt="" />
-                      </a>
+                      <Link to="/blog" className="blog-filter">
+                        <img src="/img/icon/c_d01.png" alt="" />
+                      </Link>
                     </div>
                     <div className="col-xl-4 col-md-5">
                       <div className="next-link text-left text-md-right">

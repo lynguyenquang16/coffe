@@ -1,6 +1,197 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "./CartContext";
+import { toast } from "react-toastify";
+import Newsletter from "../components/Newsletter";
+
+const menuItems = [
+  {
+    id: 1,
+    name: "Coffe Latte",
+    price: "12.90",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img1.jpg",
+  },
+  {
+    id: 2,
+    name: "Coffe Americano",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img2.jpg",
+  },
+  {
+    id: 3,
+    name: "Macchiato",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img3.jpg",
+  },
+  {
+    id: 4,
+    name: "Coffe Mocha",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img4.jpg",
+  },
+  {
+    id: 5,
+    name: "Cappuccino",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img5.jpg",
+  },
+  {
+    id: 6,
+    name: "Iced Coffe",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img6.jpg",
+  },
+  {
+    id: 7,
+    name: "Chocolate Mocha",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img7.jpg",
+  },
+  {
+    id: 8,
+    name: "Vanilla Latte",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img8.jpg",
+  },
+  {
+    id: 9,
+    name: "Iced Latte",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img1.jpg",
+  },
+  {
+    id: 10,
+    name: "Espresso",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img3.jpg",
+  },
+  {
+    id: 11,
+    name: "Caramel Latte",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img5.jpg",
+  },
+  {
+    id: 12,
+    name: "Cortado",
+    price: "13.00",
+    desc: "Espresso and Light Layer of Crema",
+    img: "/img/shop/img7.jpg",
+  },
+];
+
+const featuredProducts = [
+  {
+    id: 1,
+    name: "Caramel Macchiato",
+    price: 15,
+    oldPrice: 20,
+    img: "/img/shop/img1.jpg",
+  },
+  { id: 2, name: "Mocha", price: 15, oldPrice: 20, img: "/img/shop/img2.jpg" },
+  {
+    id: 3,
+    name: "French Vanilla",
+    price: 15,
+    oldPrice: 20,
+    img: "/img/shop/img3.jpg",
+  },
+  { id: 4, name: "Latte", price: 15, oldPrice: 20, img: "/img/shop/img4.jpg" },
+  {
+    id: 5,
+    name: "French Vanilla",
+    price: 15,
+    oldPrice: 20,
+    img: "/img/shop/img5.jpg",
+  },
+  { id: 6, name: "Latte", price: 95, oldPrice: 120, img: "/img/shop/img6.jpg" },
+];
 
 function HomePage() {
+  const { addToCart } = useCart();
+  useEffect(() => {
+    const $ = (window as any).$;
+
+    if ($) {
+      // 1. Main Slider
+      if ($(".slider-active").length > 0) {
+        $(".slider-active").slick({
+          autoplay: true,
+          autoplaySpeed: 10000,
+          dots: false,
+          fade: true,
+          arrows: true,
+          prevArrow:
+            '<button type="button" class="slick-prev"><i class="far fa-angle-left"></i></button>',
+          nextArrow:
+            '<button type="button" class="slick-next"><i class="far fa-angle-right"></i></button>',
+        });
+      }
+
+      // 2. Brand Slider
+      if ($(".brand-active").length > 0) {
+        $(".brand-active").slick({
+          dots: false,
+          infinite: true,
+          autoplay: true,
+          autoplaySpeed: 1500,
+          arrows: false,
+          speed: 1000,
+          slidesToShow: 4,
+          slidesToScroll: 2,
+        });
+      }
+
+      // 3. Testimonial Slider
+      if ($(".testimonial-active").length > 0) {
+        $(".testimonial-active").slick({
+          dots: true,
+          infinite: true,
+          arrows: false,
+          speed: 1000,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        });
+      }
+    }
+
+    // Cleanup function: Hủy slider khi rời khỏi trang
+    return () => {
+      if ($ && $(".slider-active").hasClass("slick-initialized"))
+        $(".slider-active").slick("unslick");
+      if ($ && $(".brand-active").hasClass("slick-initialized"))
+        $(".brand-active").slick("unslick");
+      if ($ && $(".testimonial-active").hasClass("slick-initialized"))
+        $(".testimonial-active").slick("unslick");
+    };
+  }, []);
+
+  const handleAddFeatured = (product: (typeof featuredProducts)[0]) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      oldPrice: product.oldPrice,
+      image: product.img,
+      category: "Coffee",
+    });
+    toast.success(`Đã thêm ${product.name} vào giỏ!`, {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
+  };
+
   return (
     <main>
       {/* slider-area */}
@@ -9,7 +200,7 @@ function HomePage() {
           <div
             className="single-slider slider-bg d-flex align-items-center"
             style={{
-              backgroundImage: "url(img/slider/slider_bg_02.png)",
+              backgroundImage: "url(/img/slider/slider_bg_02.png)",
               backgroundSize: "cover",
             }}
           >
@@ -55,7 +246,7 @@ function HomePage() {
           <div
             className="single-slider slider-bg d-flex align-items-center"
             style={{
-              backgroundImage: "url(img/slider/slider_bg.png)",
+              backgroundImage: "url(/img/slider/slider_bg.png)",
               backgroundSize: "cover",
             }}
           >
@@ -107,27 +298,27 @@ function HomePage() {
           <div className="row brand-active">
             <div className="col-xl-2">
               <div className="single-brand">
-                <img src="img/brand/b-logo1.png" alt="img" />
+                <img src="/img/brand/b-logo1.png" alt="img" />
               </div>
             </div>
             <div className="col-xl-2">
               <div className="single-brand">
-                <img src="img/brand/b-logo2.png" alt="img" />
+                <img src="/img/brand/b-logo2.png" alt="img" />
               </div>
             </div>
             <div className="col-xl-2">
               <div className="single-brand">
-                <img src="img/brand/b-logo3.png" alt="img" />
+                <img src="/img/brand/b-logo3.png" alt="img" />
               </div>
             </div>
             <div className="col-xl-2">
               <div className="single-brand">
-                <img src="img/brand/b-logo4.png" alt="img" />
+                <img src="/img/brand/b-logo4.png" alt="img" />
               </div>
             </div>
             <div className="col-xl-2">
               <div className="single-brand">
-                <img src="img/brand/b-logo5.png" alt="img" />
+                <img src="/img/brand/b-logo5.png" alt="img" />
               </div>
             </div>
           </div>
@@ -137,7 +328,7 @@ function HomePage() {
       {/* about-area */}
       <section className="about-area about-p pt-120 pb-120 p-relative fix">
         <div className="animations-02">
-          <img src="img/bg/an-img-02.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-02.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row justify-content-center align-items-center">
@@ -147,9 +338,9 @@ function HomePage() {
                 data-animation="fadeInLeft"
                 data-delay=".4s"
               >
-                <img src="img/features/about_img_02.png" alt="img" />
+                <img src="/img/features/about_img_02.png" alt="img" />
                 <div className="about-icon">
-                  <img src="img/features/about_img_03.png" alt="img" />
+                  <img src="/img/features/about_img_03.png" alt="img" />
                 </div>
               </div>
             </div>
@@ -162,7 +353,7 @@ function HomePage() {
                 <div className="about-title second-title pb-25">
                   <h5>
                     <span className="circle-left">
-                      <img src="img/bg/circle-left.png" alt="img" />
+                      <img src="/img/bg/circle-left.png" alt="img" />
                     </span>{" "}
                     About Us
                   </h5>
@@ -187,7 +378,7 @@ function HomePage() {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-md-6">
                       <div className="signature">
-                        <img src="img/features/signature.png" alt="img" />
+                        <img src="/img/features/signature.png" alt="img" />
                         <h3 className="mt-10">Vincent Smith</h3>
                       </div>
                     </div>
@@ -213,7 +404,7 @@ function HomePage() {
         style={{ backgroundColor: "#f7f5f1" }}
       >
         <div className="animations-01">
-          <img src="img/bg/an-img-01.png" alt="an-img-01" />
+          <img src="/img/bg/an-img-01.png" alt="an-img-01" />
         </div>
         <div className="container">
           <div className="row align-items-center">
@@ -221,7 +412,7 @@ function HomePage() {
               <div className="section-title center-align mb-50 text-center">
                 <h5>
                   <span className="circle-left">
-                    <img src="img/bg/circle-left.png" alt="img" />
+                    <img src="/img/bg/circle-left.png" alt="img" />
                   </span>{" "}
                   Our Features
                 </h5>
@@ -237,7 +428,7 @@ function HomePage() {
             <div className="col-lg-3 col-md-3">
               <div className="services-08-item">
                 <div className="services-08-thumb">
-                  <img src="img/icon/fe-icon01.png" alt="img" />
+                  <img src="/img/icon/fe-icon01.png" alt="img" />
                 </div>
                 <div className="services-08-content">
                   <h3>
@@ -256,7 +447,7 @@ function HomePage() {
             <div className="col-lg-3 col-md-3">
               <div className="services-08-item">
                 <div className="services-08-thumb">
-                  <img src="img/icon/fe-icon04.png" alt="img" />
+                  <img src="/img/icon/fe-icon04.png" alt="img" />
                 </div>
                 <div className="services-08-content">
                   <h3>
@@ -275,7 +466,7 @@ function HomePage() {
             <div className="col-lg-3 col-md-3">
               <div className="services-08-item">
                 <div className="services-08-thumb">
-                  <img src="img/icon/fe-icon05.png" alt="img" />
+                  <img src="/img/icon/fe-icon05.png" alt="img" />
                 </div>
                 <div className="services-08-content">
                   <h3>
@@ -294,7 +485,7 @@ function HomePage() {
             <div className="col-lg-3 col-md-3">
               <div className="services-08-item">
                 <div className="services-08-thumb">
-                  <img src="img/icon/fe-icon06.png" alt="img" />
+                  <img src="/img/icon/fe-icon06.png" alt="img" />
                 </div>
                 <div className="services-08-content">
                   <h3>
@@ -323,7 +514,7 @@ function HomePage() {
                 <div className="section-title center-align">
                   <h5>
                     <span className="circle-left">
-                      <img src="img/bg/circle-left-w.png" alt="img" />
+                      <img src="/img/bg/circle-left-w.png" alt="img" />
                     </span>{" "}
                     Contact Us
                   </h5>
@@ -399,11 +590,11 @@ function HomePage() {
             </div>
             <div className="col-lg-6">
               <div className="booking-img">
-                <img src="img/bg/booking-img.png" alt="img" />
+                <img src="/img/bg/booking-img.png" alt="img" />
               </div>
             </div>
             <div className="booking-img2">
-              <img src="img/bg/booking-img-2.png" alt="img" />
+              <img src="/img/bg/booking-img-2.png" alt="img" />
             </div>
           </div>
         </div>
@@ -412,7 +603,7 @@ function HomePage() {
       {/* Meal-area-start */}
       <section className="meal-select-section pt-120 pb-120 p-relative">
         <div className="animations-02">
-          <img src="img/bg/an-img-04.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-04.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row">
@@ -420,7 +611,7 @@ function HomePage() {
               <div className="section-title center-align mb-50 text-center">
                 <h5>
                   <span className="circle-left">
-                    <img src="img/bg/circle-left.png" alt="img" />
+                    <img src="/img/bg/circle-left.png" alt="img" />
                   </span>{" "}
                   Our Menu
                 </h5>
@@ -438,212 +629,25 @@ function HomePage() {
             <div className="col-lg-12 col-md-12">
               <div className="populer-meal">
                 <ul>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img1.jpg" alt="img" />
+                  {menuItems.map((item) => (
+                    <li key={item.id}>
+                      <div className="meal-container">
+                        <div className="meal-img">
+                          <img src={item.img} alt={item.name} />
+                        </div>
+                        <div className="meal-content">
+                          <h5>{item.name}</h5>
+                          <p>{item.desc}</p>
+                        </div>
+                        <div className="line">
+                          <hr />
+                        </div>
+                        <div className="meal-price">
+                          <strong>${item.price}</strong>
+                        </div>
                       </div>
-                      <div className="meal-content">
-                        <h5>Coffe Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$12.90</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img2.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Coffe Americano</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img3.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Macchiato</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img4.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Coffe Mocha</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img5.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Cappuccino</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img6.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Iced Coffe</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img7.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Chocolate Mocha</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img8.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Vanilla Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img1.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Iced Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img3.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Espresso</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img5.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>Caramel Latte</h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="meal-container">
-                      <div className="meal-img">
-                        <img src="img/shop/img7.jpg" alt="img" />
-                      </div>
-                      <div className="meal-content">
-                        <h5>
-                          <strong> Cortado </strong>
-                        </h5>
-                        <p>Espresso and Light Layer of Crema</p>
-                      </div>
-                      <div className="line">
-                        <hr />
-                      </div>
-                      <div className="meal-price">
-                        <strong>$13.00</strong>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -664,7 +668,7 @@ function HomePage() {
         style={{ backgroundColor: "#f7f5f1" }}
       >
         <div className="animations-01">
-          <img src="img/bg/an-img-04.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-04.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row">
@@ -672,7 +676,7 @@ function HomePage() {
               <div className="section-title center-align mb-50 text-center">
                 <h5>
                   <span className="circle-left">
-                    <img src="img/bg/circle-left.png" alt="img" />
+                    <img src="/img/bg/circle-left.png" alt="img" />
                   </span>{" "}
                   Our Online Shop
                 </h5>
@@ -687,132 +691,41 @@ function HomePage() {
             </div>
           </div>
           <div className="row home-blog-active">
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="img/shop/img1.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
+            {featuredProducts.map((product) => (
+              <div key={product.id} className="col-lg-4 col-md-12">
+                <div className="product mb-40">
+                  <div className="product__img">
+                    <Link to="/shop-detail">
+                      <img src={product.img} alt={product.name} />
+                    </Link>
+                    <div className="product-action text-center">
+                      <button
+                        onClick={() => handleAddFeatured(product)}
+                        style={{
+                          background: "#3f271e",
+                          color: "#fff",
+                          border: "none",
+                          padding: "10px 20px",
+                          cursor: "pointer",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Add Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">Caramel Macchiato</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="img/shop/img2.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">Mocha</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
+                  <div className="product__content pt-30">
+                    <h4 className="pro-title">
+                      <Link to="/shop-detail">{product.name}</Link>
+                    </h4>
+                    <div className="price">
+                      <span className="old-price">${product.oldPrice}</span>
+                      <span>${product.price}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="img/shop/img3.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">French Vanilla</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="img/shop/img4.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">Latte</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="img/shop/img5.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">French Vanilla</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="img/shop/img6.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">Latte</Link>
-                  </h4>
-                  <div className="price">
-                    <span>$95.00</span>
-                    <span className="old-price">$120.00</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -842,14 +755,14 @@ function HomePage() {
               <div className="testimonial-active">
                 <div className="single-testimonial">
                   <div className="testi-author">
-                    <img src="img/testimonial/testi_avatar.png" alt="img" />
+                    <img src="/img/testimonial/testi_avatar.png" alt="img" />
                     <div className="ta-info">
                       <h6>Jina Nilson</h6>
                       <span>Client</span>
                     </div>
                   </div>
                   <div className="review-icon">
-                    <img src="img/testimonial/review-icon.png" alt="img" />
+                    <img src="/img/testimonial/review-icon.png" alt="img" />
                   </div>
                   <p>
                     “Phasellus aliquam quis lorem amet dapibus feugiat vitae
@@ -857,19 +770,19 @@ function HomePage() {
                     ultricies. Morbi vitae semper consequat ipsum semper quam”.
                   </p>
                   <div className="qt-img">
-                    <img src="img/testimonial/qt-icon.png" alt="img" />
+                    <img src="/img/testimonial/qt-icon.png" alt="img" />
                   </div>
                 </div>
                 <div className="single-testimonial">
                   <div className="testi-author">
-                    <img src="img/testimonial/testi_avatar_02.png" alt="img" />
+                    <img src="/img/testimonial/testi_avatar_02.png" alt="img" />
                     <div className="ta-info">
                       <h6>Braitly Dcosta</h6>
                       <span>Client</span>
                     </div>
                   </div>
                   <div className="review-icon">
-                    <img src="img/testimonial/review-icon.png" alt="img" />
+                    <img src="/img/testimonial/review-icon.png" alt="img" />
                   </div>
                   <p>
                     “Phasellus aliquam quis lorem amet dapibus feugiat vitae
@@ -877,19 +790,19 @@ function HomePage() {
                     ultricies. Morbi vitae semper consequat ipsum semper quam”.
                   </p>
                   <div className="qt-img">
-                    <img src="img/testimonial/qt-icon.png" alt="img" />
+                    <img src="/img/testimonial/qt-icon.png" alt="img" />
                   </div>
                 </div>
                 <div className="single-testimonial">
                   <div className="testi-author">
-                    <img src="img/testimonial/testi_avatar.png" alt="img" />
+                    <img src="/img/testimonial/testi_avatar.png" alt="img" />
                     <div className="ta-info">
                       <h6>Jina Nilson</h6>
                       <span>Client</span>
                     </div>
                   </div>
                   <div className="review-icon">
-                    <img src="img/testimonial/review-icon.png" alt="img" />
+                    <img src="/img/testimonial/review-icon.png" alt="img" />
                   </div>
                   <p>
                     “Phasellus aliquam quis lorem amet dapibus feugiat vitae
@@ -897,19 +810,19 @@ function HomePage() {
                     ultricies. Morbi vitae semper consequat ipsum semper quam”.
                   </p>
                   <div className="qt-img">
-                    <img src="img/testimonial/qt-icon.png" alt="img" />
+                    <img src="/img/testimonial/qt-icon.png" alt="img" />
                   </div>
                 </div>
                 <div className="single-testimonial">
                   <div className="testi-author">
-                    <img src="img/testimonial/testi_avatar_02.png" alt="img" />
+                    <img src="/img/testimonial/testi_avatar_02.png" alt="img" />
                     <div className="ta-info">
                       <h6>Braitly Dcosta</h6>
                       <span>Client</span>
                     </div>
                   </div>
                   <div className="review-icon">
-                    <img src="img/testimonial/review-icon.png" alt="img" />
+                    <img src="/img/testimonial/review-icon.png" alt="img" />
                   </div>
                   <p>
                     “Phasellus aliquam quis lorem amet dapibus feugiat vitae
@@ -917,7 +830,7 @@ function HomePage() {
                     ultricies. Morbi vitae semper consequat ipsum semper quam”.
                   </p>
                   <div className="qt-img">
-                    <img src="img/testimonial/qt-icon.png" alt="img" />
+                    <img src="/img/testimonial/qt-icon.png" alt="img" />
                   </div>
                 </div>
               </div>
@@ -933,7 +846,7 @@ function HomePage() {
         style={{ background: "#3f271e" }}
       >
         <div className="animations-01">
-          <img src="img/bg/an-img-05.png" alt="contact-bg-an-05" />
+          <img src="/img/bg/an-img-05.png" alt="contact-bg-an-05" />
         </div>
         <div className="container">
           <div className="row justify-content-center align-items-center">
@@ -942,7 +855,7 @@ function HomePage() {
                 <div className="skills-title pb-20">
                   <h5>
                     <span className="circle-left">
-                      <img src="img/bg/circle-left-w.png" alt="img" />
+                      <img src="/img/bg/circle-left-w.png" alt="img" />
                     </span>{" "}
                     Coffee We Use
                   </h5>
@@ -991,7 +904,7 @@ function HomePage() {
             </div>
             <div className="col-lg-6 col-md-12 col-sm-12 pr-30">
               <div className="skills-img">
-                <img src="img/bg/skills-img.png" alt="img" className="img" />
+                <img src="/img/bg/skills-img.png" alt="img" className="img" />
               </div>
             </div>
           </div>
@@ -1001,7 +914,7 @@ function HomePage() {
       {/* blog-area */}
       <section id="blog" className="blog-area p-relative fix pt-90 pb-90">
         <div className="animations-02">
-          <img src="img/bg/an-img-06.png" alt="contact-bg-an-05" />
+          <img src="/img/bg/an-img-06.png" alt="contact-bg-an-05" />
         </div>
         <div className="container">
           <div className="row align-items-center">
@@ -1013,7 +926,7 @@ function HomePage() {
               >
                 <h5>
                   <span className="circle-left">
-                    <img src="img/bg/circle-left.png" alt="img" />
+                    <img src="/img/bg/circle-left.png" alt="img" />
                   </span>{" "}
                   Our Blog
                 </h5>
@@ -1036,7 +949,7 @@ function HomePage() {
               >
                 <div className="blog-thumb2">
                   <Link to="/blog-detail">
-                    <img src="img/blog/inner_b1.jpg" alt="img" />
+                    <img src="/img/blog/inner_b1.jpg" alt="img" />
                   </Link>
                 </div>
                 <div className="blog-content2">
@@ -1063,9 +976,9 @@ function HomePage() {
                 data-delay=".4s"
               >
                 <div className="blog-thumb2">
-                  <a href="blog-details.html">
-                    <img src="img/blog/inner_b2.jpg" alt="img" />
-                  </a>
+                  <Link to="/blog-detail">
+                    <img src="/img/blog/inner_b2.jpg" alt="img" />
+                  </Link>
                 </div>
                 <div className="blog-content2">
                   <div className="date-home">24th March 2022</div>
@@ -1079,7 +992,7 @@ function HomePage() {
                     at dignissim ligula, nec tristique orci.
                   </p>
                   <div className="blog-btn">
-                    <a href="blog-details.html">Read More</a>
+                    <Link to="/blog-detail">Read More</Link>
                   </div>
                 </div>
               </div>
@@ -1091,9 +1004,9 @@ function HomePage() {
                 data-delay=".4s"
               >
                 <div className="blog-thumb2">
-                  <a href="blog-details.html">
-                    <img src="img/blog/inner_b3.jpg" alt="img" />
-                  </a>
+                  <Link to="/blog-detail">
+                    <img src="/img/blog/inner_b3.jpg" alt="img" />
+                  </Link>
                 </div>
                 <div className="blog-content2">
                   <div className="date-home">24th March 2022</div>
@@ -1107,7 +1020,7 @@ function HomePage() {
                     at dignissim ligula, nec tristique orci.
                   </p>
                   <div className="blog-btn">
-                    <a href="blog-details.html">Read More</a>
+                    <Link to="/blog-detail">Read More</Link>
                   </div>
                 </div>
               </div>
@@ -1172,6 +1085,9 @@ function HomePage() {
         </div>
       </section>
       {/* newslater-aread-end */}
+
+      <Newsletter />
+
       {/* gallery-area */}
       <section className="profile fix">
         <div className="container-fluid">
@@ -1182,11 +1098,11 @@ function HomePage() {
                   <div className="grid-item financial">
                     <a
                       className="popup-image"
-                      href="img/gallery/protfolio-img01.png"
+                      href="/img/gallery/protfolio-img01.png"
                     >
                       <figure className="gallery-image">
                         <img
-                          src="img/gallery/protfolio-img01.png"
+                          src="/img/gallery/protfolio-img01.png"
                           alt="img"
                           className="img"
                         />
@@ -1196,11 +1112,11 @@ function HomePage() {
                   <div className="grid-item banking">
                     <a
                       className="popup-image"
-                      href="img/gallery/protfolio-img02.png"
+                      href="/img/gallery/protfolio-img02.png"
                     >
                       <figure className="gallery-image">
                         <img
-                          src="img/gallery/protfolio-img02.png"
+                          src="/img/gallery/protfolio-img02.png"
                           alt="img"
                           className="img"
                         />
@@ -1210,11 +1126,11 @@ function HomePage() {
                   <div className="grid-item insurance">
                     <a
                       className="popup-image"
-                      href="img/gallery/protfolio-img03.png"
+                      href="/img/gallery/protfolio-img03.png"
                     >
                       <figure className="gallery-image">
                         <img
-                          src="img/gallery/protfolio-img03.png"
+                          src="/img/gallery/protfolio-img03.png"
                           alt="img"
                           className="img"
                         />
@@ -1224,11 +1140,11 @@ function HomePage() {
                   <div className="grid-item family">
                     <a
                       className="popup-image"
-                      href="img/gallery/protfolio-img04.png"
+                      href="/img/gallery/protfolio-img04.png"
                     >
                       <figure className="gallery-image">
                         <img
-                          src="img/gallery/protfolio-img04.png"
+                          src="/img/gallery/protfolio-img04.png"
                           alt="img"
                           className="img"
                         />
@@ -1238,11 +1154,11 @@ function HomePage() {
                   <div className="grid-item business">
                     <a
                       className="popup-image"
-                      href="img/gallery/protfolio-img05.png"
+                      href="/img/gallery/protfolio-img05.png"
                     >
                       <figure className="gallery-image">
                         <img
-                          src="img/gallery/protfolio-img05.png"
+                          src="/img/gallery/protfolio-img05.png"
                           alt="img"
                           className="img"
                         />
