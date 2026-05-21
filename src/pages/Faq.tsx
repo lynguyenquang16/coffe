@@ -66,60 +66,41 @@ function Faq() {
                     <div className="card-header" id="headingThree">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseThree"
-                          aria-bs-expanded="false"
-                          aria-bs-controls="collapseThree"
+                          className={`faq-btn ${activeId === "collapseThree" ? "" : "collapsed"}`}
+                          onClick={() => toggleFaq("collapseThree")}
                         >
                           How To Use Underlined Text To Improve User Experience
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseThree"
-                      className="collapse"
-                      aria-labelledby="headingThree"
-                      data-bs-parent="#accordionExample"
-                      style={{}}
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseThree" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="card">
                     <div className="card-header" id="headingFour">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseFour"
-                          aria-bs-expanded="false"
-                          aria-bs-controls="collapseFour"
+                          className={`faq-btn ${activeId === "collapseFour" ? "" : "collapsed"}`}
+                          onClick={() => toggleFaq("collapseFour")}
                         >
                           Understanding CSS Layout And The Block Formatting
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseFour"
-                      className="collapse"
-                      aria-labelledby="headingFour"
-                      data-bs-parent="#accordionExample"
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseFour" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -131,120 +112,81 @@ function Faq() {
                     <div className="card-header" id="headingfive">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapsefive"
-                          aria-bs-expanded="false"
-                          aria-bs-controls="collapsefive"
+                          className={`faq-btn ${activeId === "collapseFive" ? "" : "collapsed"}`}
+                          onClick={() => toggleFaq("collapseFive")}
                         >
                           Breaking The Rules Using SQLite To Demo Web?
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapsefive"
-                      className="collapse"
-                      aria-labelledby="headingfive"
-                      data-bs-parent="#accordionExample1"
-                      style={{}}
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseFive" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="card">
                     <div className="card-header" id="headingSix">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseSix"
-                          aria-bs-expanded="true"
-                          aria-bs-controls="collapseSix"
+                          className={`faq-btn ${activeId === "collapseSix" ? "" : "collapsed"}`}
+                          onClick={() => toggleFaq("collapseSix")}
                         >
                           Monthly Web Development Update Pragmatic Releasing?
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseSix"
-                      className="collapse show"
-                      aria-labelledby="headingSix"
-                      data-bs-parent="#accordionExample"
-                      style={{}}
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseSix" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="card">
                     <div className="card-header" id="headingSeveen">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseSeveen"
-                          aria-bs-expanded="false"
-                          aria-bs-controls="collapseSeveen"
+                          className={`faq-btn ${activeId === "collapseSeven" ? "" : "collapsed"}`}
+                          onClick={() => toggleFaq("collapseSeven")}
                         >
                           How To Use Underlined Text To Improve User Experience
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseSeveen"
-                      className="collapse"
-                      aria-labelledby="headingSeveen"
-                      data-bs-parent="#accordionExample"
-                      style={{}}
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseSeven" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="card">
                     <div className="card-header" id="headingEighte">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseEighte"
-                          aria-bs-expanded="false"
-                          aria-bs-controls="collapseEighte"
+                          className={`faq-btn ${activeId === "collapseEight" ? "" : "collapsed"}`}
+                          onClick={() => toggleFaq("collapseEight")}
                         >
                           Understanding CSS Layout And The Block Formatting
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseEighte"
-                      className="collapse"
-                      aria-labelledby="headingEighte"
-                      data-bs-parent="#accordionExample"
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseEight" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

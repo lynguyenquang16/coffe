@@ -281,10 +281,10 @@ function HomePage() {
                       volutpat. Curabitur diam ex, dapibus purus sapien, cursus
                       sed nisl tristique, commodo gravida lectus non.
                     </p>
-                    <div className="slider-btn mt-30 mb-105">
+                    <div className="slider-btn mt-30 mb-105 d-flex flex-column flex-md-row justify-content-center justify-content-md-start align-items-center gap-3">
                       <Link
                         to="/contact"
-                        className="btn ss-btn mr-15"
+                        className="btn ss-btn"
                         data-animation="fadeInLeft"
                         data-delay=".4s"
                       >
@@ -327,10 +327,10 @@ function HomePage() {
                       volutpat. Curabitur diam ex, dapibus purus sapien, cursus
                       sed nisl tristique, commodo gravida lectus non.
                     </p>
-                    <div className="slider-btn mt-30 mb-105">
+                    <div className="slider-btn mt-30 mb-105 d-flex flex-column flex-md-row justify-content-center justify-content-md-start align-items-center gap-3">
                       <Link
                         to="/contact"
-                        className="btn ss-btn mr-15"
+                        className="btn ss-btn"
                         data-animation="fadeInLeft"
                         data-delay=".4s"
                       >

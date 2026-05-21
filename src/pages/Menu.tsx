@@ -159,132 +159,44 @@ function Menu() {
             </div>
           </div>
           <div className="row home-blog-active">
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail">
-                    <img src="/img/shop/img1.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail">Add Cart</Link>
+            {products.slice(0, 6).map((product) => (
+              <div key={product.id} className="col-lg-4 col-md-12">
+                <div className="product mb-40">
+                  <div className="product__img">
+                    <Link to={`/shop-detail/${product.id}`}>
+                      <img src={product.image} alt={product.name} />
+                    </Link>
+                    <div className="product-action text-center">
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        style={{
+                          background: "#fe4a49",
+                          color: "#fff",
+                          border: "none",
+                          padding: "10px 20px",
+                          cursor: "pointer",
+                          fontWeight: 600,
+                          width: "100%",
+                        }}
+                      >
+                        Add Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail">Caramel Macchiato</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail/2">
-                    <img src="img/shop/img2.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail/2">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail/2">Mocha</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
+                  <div className="product__content pt-30">
+                    <h4 className="pro-title">
+                      <Link to={`/shop-detail/${product.id}`}>
+                        {product.name}
+                      </Link>
+                    </h4>
+                    <div className="price">
+                      <span className="old-price">${product.oldPrice}</span>
+                      <span>${product.price}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail/3">
-                    <img src="/img/shop/img3.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail/3">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail/3">French Vanilla</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail/4">
-                    <img src="/img/shop/img4.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail/4">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail/4">Latte</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail/5">
-                    <img src="/img/shop/img5.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail/5">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail/5">French Vanilla</Link>
-                  </h4>
-                  <div className="price">
-                    <span className="old-price">$20</span>
-                    <span>$15</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-12">
-              <div className="product mb-40">
-                <div className="product__img">
-                  <Link to="/shop-detail/6">
-                    <img src="/img/shop/img6.jpg" alt="" />
-                  </Link>
-                  <div className="product-action text-center">
-                    <Link to="/shop-detail/6">Add Cart</Link>
-                  </div>
-                </div>
-                <div className="product__content pt-30">
-                  <h4 className="pro-title">
-                    <Link to="/shop-detail/6">Latte</Link>
-                  </h4>
-                  <div className="price">
-                    <span>$95.00</span>
-                    <span className="old-price">$120.00</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
