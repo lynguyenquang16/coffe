@@ -113,9 +113,10 @@ function Shop() {
                   alignItems: "center",
                   gap: 8,
                   padding: "10px 20px",
-                  background: "#3f271e",
+                  background: "#fe4a49",
                   color: "#fff",
-                  borderRadius: 6,
+                  borderRadius: "30px",
+                  boxShadow: "0 4px 15px rgba(254, 74, 73, 0.3)",
                   textDecoration: "none",
                   fontWeight: 600,
                   marginTop: 16,
@@ -126,8 +127,8 @@ function Shop() {
                 {totalItems > 0 && (
                   <span
                     style={{
-                      background: "#c8a96e",
-                      color: "#fff",
+                      background: "#fff",
+                      color: "#fe4a49",
                       borderRadius: "50%",
                       width: 22,
                       height: 22,
@@ -148,9 +149,17 @@ function Shop() {
           <div className="row align-items-center">
             {products.map((product) => (
               <div key={product.id} className="col-lg-4 col-md-6">
-                <div className="product mb-40">
+                <div
+                  className="product mb-40"
+                  style={{
+                    border: "1px solid #f0f0f0",
+                    borderRadius: "15px",
+                    overflow: "hidden",
+                    transition: "all 0.3s ease",
+                  }}
+                >
                   <div className="product__img">
-                    <Link to="/shop-detail">
+                    <Link to={`/shop-detail/${product.id}`}>
                       <img src={product.image} alt={product.name} />
                     </Link>
                     <div className="product-action text-center">
@@ -158,7 +167,7 @@ function Shop() {
                         onClick={() => handleAddToCart(product)}
                         style={{
                           background:
-                            addedId === product.id ? "#28a745" : "#3f271e",
+                            addedId === product.id ? "#28a745" : "#fe4a49",
                           color: "#fff",
                           border: "none",
                           padding: "10px 20px",
@@ -194,7 +203,9 @@ function Shop() {
                       <a href="#">{product.category}</a>
                     </span>
                     <h4 className="pro-title">
-                      <Link to="/shop-detail">{product.name}</Link>
+                      <Link to={`/shop-detail/${product.id}`}>
+                        {product.name}
+                      </Link>
                     </h4>
                     <div className="price">
                       <span>${product.price}.00</span>

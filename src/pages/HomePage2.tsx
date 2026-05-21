@@ -1,6 +1,66 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "./CartContext";
+import { toast } from "react-toastify";
 
 function HomePage2() {
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    const $ = (window as any).$;
+    if ($) {
+      if ($(".slider-active").length > 0) {
+        $(".slider-active").slick({
+          autoplay: true,
+          autoplaySpeed: 10000,
+          dots: false,
+          fade: true,
+          arrows: true,
+          prevArrow:
+            '<button type="button" class="slick-prev"><i class="far fa-angle-left"></i></button>',
+          nextArrow:
+            '<button type="button" class="slick-next"><i class="far fa-angle-right"></i></button>',
+        });
+      }
+      if ($(".testimonial-active").length > 0) {
+        $(".testimonial-active").slick({
+          dots: true,
+          infinite: true,
+          arrows: false,
+          speed: 1000,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        });
+      }
+    }
+    return () => {
+      if ($ && $(".slider-active").hasClass("slick-initialized"))
+        $(".slider-active").slick("unslick");
+      if ($ && $(".testimonial-active").hasClass("slick-initialized"))
+        $(".testimonial-active").slick("unslick");
+    };
+  }, []);
+
+  const handleAddToCart = (
+    id: number,
+    name: string,
+    price: number,
+    img: string,
+  ) => {
+    addToCart({
+      id,
+      name,
+      price,
+      oldPrice: price + 5,
+      image: img,
+      category: "Coffee",
+    });
+    toast.success(`Đã thêm ${name} vào giỏ hàng!`, {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
+  };
+
   return (
     <main>
       {/* slider-area */}
@@ -9,7 +69,7 @@ function HomePage2() {
           <div
             className="single-slider slider-bg d-flex align-items-center"
             style={{
-              backgroundImage: "url(img/slider/slider_bg_01.png)",
+              backgroundImage: "url(/img/slider/slider_bg_01.png)",
               backgroundSize: "cover",
             }}
           >
@@ -162,15 +222,15 @@ function HomePage2() {
                 </div>
                 <div className="services-08-content">
                   <h3>
-                    <a href="single-service.html"> High Quality Coffee</a>
+                    <Link to="/service-detail"> High Quality Coffee</Link>
                   </h3>
                   <p>
                     Nullam molestie lacus sit amet velit fermentum feugiat.
                     Mauris auctor eget nunc sit amet.
                   </p>
-                  <a href="single-service.html">
+                  <Link to="/service-detail">
                     Read More <i className="fal fa-long-arrow-right" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -181,15 +241,15 @@ function HomePage2() {
                 </div>
                 <div className="services-08-content">
                   <h3>
-                    <a href="single-service.html">Barista Coffee Shops</a>
+                    <Link to="/service-detail">Barista Coffee Shops</Link>
                   </h3>
                   <p>
                     Nullam molestie lacus sit amet velit fermentum feugiat.
                     Mauris auctor eget nunc sit amet.
                   </p>
-                  <a href="single-service.html">
+                  <Link to="/service-detail">
                     Read More <i className="fal fa-long-arrow-right" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -200,15 +260,15 @@ function HomePage2() {
                 </div>
                 <div className="services-08-content">
                   <h3>
-                    <a href="single-service.html">Shop Coffee Online</a>
+                    <Link to="/service-detail">Shop Coffee Online</Link>
                   </h3>
                   <p>
                     Nullam molestie lacus sit amet velit fermentum feugiat.
                     Mauris auctor eget nunc sit amet.
                   </p>
-                  <a href="single-service.html">
+                  <Link to="/service-detail">
                     Read More <i className="fal fa-long-arrow-right" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -219,15 +279,15 @@ function HomePage2() {
                 </div>
                 <div className="services-08-content">
                   <h3>
-                    <a href="single-service.html">Best Coffe Machine</a>
+                    <Link to="/service-detail">Best Coffe Machine</Link>
                   </h3>
                   <p>
                     Nullam molestie lacus sit amet velit fermentum feugiat.
                     Mauris auctor eget nunc sit amet.
                   </p>
-                  <a href="single-service.html">
+                  <Link to="/service-detail">
                     Read More <i className="fal fa-long-arrow-right" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -500,9 +560,9 @@ function HomePage2() {
             </div>
             <div className="col-md-12 text-center">
               <div className="slider-btn">
-                <a href="about.html" className="btn ss-btn smoth-scroll mt-30">
+                <Link to="/about" className="btn ss-btn smoth-scroll mt-30">
                   Discover More
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -515,7 +575,7 @@ function HomePage2() {
         style={{ backgroundColor: "#f7f5f1" }}
       >
         <div className="animations-01">
-          <img src="img/bg/an-img-04.png" alt="contact-bg-an-01" />
+          <img src="/img/bg/an-img-04.png" alt="contact-bg-an-01" />
         </div>
         <div className="container">
           <div className="row">
@@ -541,16 +601,35 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
-                    <img src="img/shop/img1.jpg" alt="" />
-                  </a>
+                  <Link to="/shop-detail">
+                    <img src="/img/shop/img1.jpg" alt="" />
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <button
+                      onClick={() =>
+                        handleAddToCart(
+                          1,
+                          "Caramel Macchiato",
+                          15,
+                          "/img/shop/img1.jpg",
+                        )
+                      }
+                      style={{
+                        background: "#3f271e",
+                        color: "#fff",
+                        border: "none",
+                        padding: "10px 20px",
+                        cursor: "pointer",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Add Cart
+                    </button>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Caramel Macchiato</a>
+                    <Link to="/shop-detail">Caramel Macchiato</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -562,16 +641,16 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
+                  <Link to="/shop-detail/2">
                     <img src="img/shop/img2.jpg" alt="" />
-                  </a>
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/2">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Mocha</a>
+                    <Link to="/shop-detail/2">Mocha</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -583,16 +662,16 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
+                  <Link to="/shop-detail/3">
                     <img src="img/shop/img3.jpg" alt="" />
-                  </a>
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/3">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">French Vanilla</a>
+                    <Link to="/shop-detail/3">French Vanilla</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -604,16 +683,16 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
+                  <Link to="/shop-detail/4">
                     <img src="img/shop/img4.jpg" alt="" />
-                  </a>
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/4">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Latte</a>
+                    <Link to="/shop-detail/4">Latte</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -625,16 +704,16 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
+                  <Link to="/shop-detail/5">
                     <img src="img/shop/img5.jpg" alt="" />
-                  </a>
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/5">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">French Vanilla</a>
+                    <Link to="/shop-detail/5">French Vanilla</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -646,16 +725,16 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
+                  <Link to="/shop-detail/6">
                     <img src="img/shop/img6.jpg" alt="" />
-                  </a>
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/6">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Latte</a>
+                    <Link to="/shop-detail/6">Latte</Link>
                   </h4>
                   <div className="price">
                     <span>$95.00</span>

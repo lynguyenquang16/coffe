@@ -180,7 +180,7 @@ function Header() {
                           position: "relative",
                           display: "inline-flex",
                           alignItems: "center",
-                          color: "#3f271e",
+                          color: "#fe4a49",
                           fontSize: 22,
                         }}
                         title="Giỏ hàng"
@@ -192,7 +192,7 @@ function Header() {
                               position: "absolute",
                               top: -8,
                               right: -10,
-                              background: "#c8a96e",
+                              background: "#2d3436",
                               color: "#fff",
                               borderRadius: "50%",
                               width: 20,

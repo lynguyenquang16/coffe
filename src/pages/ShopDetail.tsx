@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Bản vá: Thêm dòng này để hết gạch đỏ thẻ <Link>
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCart } from "./CartContext";
 
 function ShopDetail() {
+  const { id } = useParams();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState("desc"); // 'desc', 'info', 'rev'
+  const [mainImage, setMainImage] = useState("/img/shop/details/large1.jpg");
+  const productName = id === "1" ? "Bakari Product" : "Sản phẩm Cà phê";
+
+  // Tự động cuộn lên đầu trang khi vào trang chi tiết
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleAddToCart = (e: React.FormEvent) => {
     e.preventDefault();
     addToCart(
       {
-        id: 99, // Trong thực tế, ID này nên lấy từ URL hoặc props
-        name: "Helios Piranho Lamp",
+        id: Number(id) || 99,
+        name: productName,
         price: 700.0,
         oldPrice: 820.0,
         image: "/img/shop/details/large1.jpg",
@@ -31,7 +40,7 @@ function ShopDetail() {
       {/* breadcrumb-area */}
       <section
         className="breadcrumb-area d-flex align-items-center"
-        style={{ backgroundImage: "url(img/bg/bdrc-bg.jpg)" }}
+        style={{ backgroundImage: "url(/img/bg/bdrc-bg.jpg)" }}
       >
         <div className="container">
           <div className="row align-items-center">
@@ -72,66 +81,49 @@ function ShopDetail() {
           <div className="row">
             <div className="col-xl-7">
               <div className="shop-thumb-tab mb-30">
-                <ul className="nav" id="myTab2" role="tablist">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link active"
-                      id="home-tab"
-                      data-bs-toggle="tab"
-                      href="#home"
-                      role="tab"
-                      aria-selected="true"
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "15px",
+                  }}
+                >
+                  {[1, 2, 3].map((num) => (
+                    <div
+                      key={num}
+                      onClick={() =>
+                        setMainImage(`/img/shop/details/large${num}.jpg`)
+                      }
+                      style={{
+                        cursor: "pointer",
+                        border:
+                          mainImage === `/img/shop/details/large${num}.jpg`
+                            ? "2px solid #fe4a49"
+                            : "2px solid transparent",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        transition: "0.3s",
+                      }}
                     >
-                      <img src="/img/shop/details/thumb1.jpg" alt="" />
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      id="profile-tab"
-                      data-bs-toggle="tab"
-                      href="#profile"
-                      role="tab"
-                      aria-selected="false"
-                    >
-                      <img src="/img/shop/details/thumb2.jpg" alt="" />
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      id="profile-tab2"
-                      data-bs-toggle="tab"
-                      href="#profile1"
-                      role="tab"
-                      aria-selected="false"
-                    >
-                      <img src="/img/shop/details/thumb3.jpg" alt="" />
-                    </a>
-                  </li>
-                </ul>
+                      <img src={`/img/shop/details/thumb${num}.jpg`} alt="" />
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="product-details-img mb-30">
-                <div className="tab-content" id="myTabContent2">
-                  <div
-                    className="tab-pane fade show active"
-                    id="home"
-                    role="tabpanel"
-                  >
-                    <div className="product-large-img">
-                      <img src="/img/shop/details/large1.jpg" alt="" />
-                    </div>
-                  </div>
-                  <div className="tab-pane fade" id="profile" role="tabpanel">
-                    <div className="product-large-img">
-                      <img src="/img/shop/details/large2.jpg" alt="" />
-                    </div>
-                  </div>
-                  <div className="tab-pane fade" id="profile1" role="tabpanel">
-                    <div className="product-large-img">
-                      <img src="/img/shop/details/large3.jpg" alt="" />
-                    </div>
-                  </div>
+                <div
+                  className="product-large-img"
+                  style={{
+                    borderRadius: "15px",
+                    overflow: "hidden",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <img
+                    src={mainImage}
+                    alt=""
+                    style={{ transition: "0.5s ease" }}
+                  />
                 </div>
               </div>
             </div>
@@ -139,7 +131,7 @@ function ShopDetail() {
               <div className="product-details mb-30">
                 <div className="product-details-title">
                   <p>Workstead</p>
-                  <h1>Helios Piranho Lamp</h1>
+                  <h1>{productName}</h1>
                   <div className="price details-price pb-30 mb-20">
                     <span>$700.00</span>
                     <span className="old-price">$820.00</span>
@@ -165,11 +157,27 @@ function ShopDetail() {
                           value={quantity}
                           onChange={(e) => setQuantity(Number(e.target.value))}
                           min="1"
+                          style={{
+                            width: "60px",
+                            padding: "10px",
+                            borderRadius: "5px",
+                            border: "1px solid #ddd",
+                          }}
                         />
                       </div>
                     </div>
-                    <button className="btn btn-black" type="submit">
-                      add to cart
+                    <button
+                      className="btn"
+                      type="submit"
+                      style={{
+                        background: "#fe4a49",
+                        color: "#fff",
+                        padding: "12px 30px",
+                        borderRadius: "30px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Thêm vào giỏ hàng
                     </button>
                   </form>
                 </div>

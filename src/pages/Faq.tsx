@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import Breadcrumb from "../components/Breadcrumb";
 import Newsletter from "../components/Newsletter";
 
 function Faq() {
+  const [activeId, setActiveId] = useState<string | null>("collapseOne");
+
+  const toggleFaq = (id: string) => {
+    setActiveId(activeId === id ? null : id);
+  };
+
   return (
     <main>
       <Breadcrumb title="Faq" />
@@ -18,31 +24,22 @@ function Faq() {
                     <div className="card-header" id="headingOne">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn collapsed"
+                          className={`faq-btn ${activeId === "collapseOne" ? "" : "collapsed"}`}
                           type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseOne"
-                          aria-bs-expanded="true"
-                          aria-bs-controls="collapseOne"
+                          onClick={() => toggleFaq("collapseOne")}
                         >
                           Breaking The Rules Using SQLite To Demo Web?
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseOne"
-                      className="collapse"
-                      aria-labelledby="headingOne"
-                      data-bs-parent="#accordionExample"
-                      style={{}}
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseOne" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="card">
                     <div className="card-header" id="headingTwo">

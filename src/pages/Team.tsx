@@ -5,6 +5,22 @@ import Newsletter from "../components/Newsletter";
 function Gallery() {
   return (
     <main>
+      <style>{`
+        .grid.col2 .grid-item {
+          width: 50%;
+          padding: 10px;
+        }
+        .gallery-image {
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gallery-image img { transition: 0.5s; }
+        .gallery-image:hover img { transform: scale(1.1); }
+        @media (max-width: 768px) {
+          .grid.col2 .grid-item { width: 100%; }
+        }
+      `}</style>
       <Breadcrumb title="Gallery" />
 
       {/* gallery-area */}

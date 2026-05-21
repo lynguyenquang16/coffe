@@ -164,16 +164,31 @@ function HomePage() {
           slidesToScroll: 2,
         });
       }
+
+      // 4. Isotope Grid Layout
+      if ($(".grid").length > 0) {
+        $(".grid").imagesLoaded(function () {
+          $(".grid").isotope({
+            itemSelector: ".grid-item",
+            percentPosition: true,
+            masonry: {
+              columnWidth: ".grid-item",
+            },
+          });
+        });
+      }
     }
 
     // Cleanup function: Hủy slider khi rời khỏi trang
     return () => {
-      if ($ && $(".slider-active").hasClass("slick-initialized"))
+      if (!$ || typeof $.fn.slick !== "function") return;
+      if ($(".slider-active").hasClass("slick-initialized"))
         $(".slider-active").slick("unslick");
-      if ($ && $(".brand-active").hasClass("slick-initialized"))
+      if ($(".brand-active").hasClass("slick-initialized"))
         $(".brand-active").slick("unslick");
-      if ($ && $(".testimonial-active").hasClass("slick-initialized"))
+      if ($(".testimonial-active").hasClass("slick-initialized"))
         $(".testimonial-active").slick("unslick");
+      if ($(".grid").data("isotope")) $(".grid").isotope("destroy");
     };
   }, []);
 
@@ -695,7 +710,7 @@ function HomePage() {
               <div key={product.id} className="col-lg-4 col-md-12">
                 <div className="product mb-40">
                   <div className="product__img">
-                    <Link to="/shop-detail">
+                    <Link to={`/shop-detail/${product.id}`}>
                       <img src={product.img} alt={product.name} />
                     </Link>
                     <div className="product-action text-center">
@@ -716,7 +731,9 @@ function HomePage() {
                   </div>
                   <div className="product__content pt-30">
                     <h4 className="pro-title">
-                      <Link to="/shop-detail">{product.name}</Link>
+                      <Link to={`/shop-detail/${product.id}`}>
+                        {product.name}
+                      </Link>
                     </h4>
                     <div className="price">
                       <span className="old-price">${product.oldPrice}</span>

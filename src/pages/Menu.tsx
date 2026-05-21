@@ -183,16 +183,16 @@ function Menu() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
+                  <Link to="/shop-detail/2">
                     <img src="img/shop/img2.jpg" alt="" />
-                  </a>
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/2">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Mocha</a>
+                    <Link to="/shop-detail/2">Mocha</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
