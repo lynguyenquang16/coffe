@@ -11,7 +11,7 @@ function Gallery() {
           itemSelector: ".grid-item",
           percentPosition: true,
           masonry: {
-            columnWidth: ".grid-item",
+            columnWidth: ".grid-sizer",
           },
         });
       });
@@ -28,8 +28,15 @@ function Gallery() {
     <main>
       <style>{`
         .grid.col2 .grid-item {
+          width: 25%;
+          padding: 5px;
+          box-sizing: border-box;
+        }
+        .grid.col2 .grid-sizer {
+          width: 25%;
+        }
+        .grid.col2 .grid-item:first-child {
           width: 50%;
-          padding: 10px;
         }
         .gallery-image {
           border-radius: 15px;
@@ -43,7 +50,7 @@ function Gallery() {
           transform: scale(1.1);
         }
         @media (max-width: 768px) {
-          .grid.col2 .grid-item { width: 100%; }
+          .grid.col2 .grid-item { width: 50%; }
         }
       `}</style>
       <Breadcrumb title="Gallery" />
@@ -55,6 +62,7 @@ function Gallery() {
             <div className="col-lg-12">
               <div className="masonry-gallery-huge">
                 <div className="grid col2">
+                  <div className="grid-sizer"></div>
                   <div className="grid-item financial">
                     <a
                       className="popup-image"

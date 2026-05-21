@@ -204,16 +204,16 @@ function Menu() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
-                    <img src="img/shop/img3.jpg" alt="" />
-                  </a>
+                  <Link to="/shop-detail/3">
+                    <img src="/img/shop/img3.jpg" alt="" />
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/3">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">French Vanilla</a>
+                    <Link to="/shop-detail/3">French Vanilla</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -225,16 +225,16 @@ function Menu() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
-                    <img src="img/shop/img4.jpg" alt="" />
-                  </a>
+                  <Link to="/shop-detail/4">
+                    <img src="/img/shop/img4.jpg" alt="" />
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/4">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Latte</a>
+                    <Link to="/shop-detail/4">Latte</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -246,16 +246,16 @@ function Menu() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
-                    <img src="img/shop/img5.jpg" alt="" />
-                  </a>
+                  <Link to="/shop-detail/5">
+                    <img src="/img/shop/img5.jpg" alt="" />
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/5">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">French Vanilla</a>
+                    <Link to="/shop-detail/5">French Vanilla</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -267,16 +267,16 @@ function Menu() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <a href="shop-details.html">
-                    <img src="img/shop/img6.jpg" alt="" />
-                  </a>
+                  <Link to="/shop-detail/6">
+                    <img src="/img/shop/img6.jpg" alt="" />
+                  </Link>
                   <div className="product-action text-center">
-                    <a href="shop-details.html">Add Cart</a>
+                    <Link to="/shop-detail/6">Add Cart</Link>
                   </div>
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <a href="shop-details.html">Latte</a>
+                    <Link to="/shop-detail/6">Latte</Link>
                   </h4>
                   <div className="price">
                     <span>$95.00</span>

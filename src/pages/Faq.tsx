@@ -45,31 +45,22 @@ function Faq() {
                     <div className="card-header" id="headingTwo">
                       <h2 className="mb-0">
                         <button
-                          className="faq-btn"
+                          className={`faq-btn ${activeId === "collapseTwo" ? "" : "collapsed"}`}
                           type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseTwo"
-                          aria-bs-expanded="true"
-                          aria-bs-controls="collapseTwo"
+                          onClick={() => toggleFaq("collapseTwo")}
                         >
                           Monthly Web Development Update Pragmatic Releasing?
                         </button>
                       </h2>
                     </div>
-                    <div
-                      id="collapseTwo"
-                      className="collapse show"
-                      aria-labelledby="headingTwo"
-                      data-bs-parent="#accordionExample"
-                      style={{}}
-                    >
-                      <div className="card-body">
+                    {activeId === "collapseTwo" && (
+                      <div className="card-body animate-fade">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="card">
                     <div className="card-header" id="headingThree">

@@ -148,8 +148,22 @@ function HomePage() {
           autoplaySpeed: 1500,
           arrows: false,
           speed: 1000,
-          slidesToShow: 4,
+          slidesToShow: 5,
           slidesToScroll: 2,
+          responsive: [
+            {
+              breakpoint: 1200,
+              settings: { slidesToShow: 4 },
+            },
+            {
+              breakpoint: 992,
+              settings: { slidesToShow: 3 },
+            },
+            {
+              breakpoint: 767,
+              settings: { slidesToShow: 2 },
+            },
+          ],
         });
       }
 
@@ -162,6 +176,16 @@ function HomePage() {
           speed: 1000,
           slidesToShow: 2,
           slidesToScroll: 2,
+          responsive: [
+            {
+              breakpoint: 992,
+              settings: { slidesToShow: 1, slidesToScroll: 1 },
+            },
+            {
+              breakpoint: 767,
+              settings: { slidesToShow: 1, slidesToScroll: 1 },
+            },
+          ],
         });
       }
 
@@ -172,7 +196,7 @@ function HomePage() {
             itemSelector: ".grid-item",
             percentPosition: true,
             masonry: {
-              columnWidth: ".grid-item",
+              columnWidth: ".grid-sizer",
             },
           });
         });
@@ -209,6 +233,29 @@ function HomePage() {
 
   return (
     <main>
+      <style>{`
+        .grid.col2 .grid-item {
+          width: 25%;
+          padding: 5px;
+          box-sizing: border-box;
+        }
+        .grid.col2 .grid-sizer {
+          width: 25%;
+        }
+        .grid.col2 .grid-item:first-child {
+          width: 50%;
+        }
+        .gallery-image {
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gallery-image img { transition: 0.5s; }
+        .gallery-image:hover img { transform: scale(1.1); }
+        @media (max-width: 768px) {
+          .grid.col2 .grid-item { width: 50%; }
+        }
+      `}</style>
       {/* slider-area */}
       <section id="home" className="slider-area fix p-relative">
         <div className="slider-active" style={{ background: "#101010" }}>
@@ -1112,6 +1159,7 @@ function HomePage() {
             <div className="col-lg-12">
               <div className="masonry-gallery-huge">
                 <div className="grid col2">
+                  <div className="grid-sizer"></div>
                   <div className="grid-item financial">
                     <a
                       className="popup-image"

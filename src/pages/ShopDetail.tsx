@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCart } from "./CartContext";
+import { products } from "./products";
 
 function ShopDetail() {
   const { id } = useParams();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("desc"); // 'desc', 'info', 'rev'
-  const [mainImage, setMainImage] = useState("/img/shop/details/large1.jpg");
-  const productName = id === "1" ? "Bakari Product" : "Sản phẩm Cà phê";
+
+  const product = products.find((p) => p.id === Number(id)) || products[0];
+  const [mainImage, setMainImage] = useState(product.image);
+  const productName = product.name;
 
   // Tự động cuộn lên đầu trang khi vào trang chi tiết
   React.useEffect(() => {
@@ -18,17 +21,7 @@ function ShopDetail() {
 
   const handleAddToCart = (e: React.FormEvent) => {
     e.preventDefault();
-    addToCart(
-      {
-        id: Number(id) || 99,
-        name: productName,
-        price: 700.0,
-        oldPrice: 820.0,
-        image: "/img/shop/details/large1.jpg",
-        category: "furniture",
-      },
-      quantity,
-    );
+    addToCart(product, quantity);
     toast.success("🛒 Đã thêm " + quantity + " sản phẩm vào giỏ hàng!", {
       theme: "colored",
       icon: "☕",
@@ -133,16 +126,13 @@ function ShopDetail() {
                   <p>Workstead</p>
                   <h1>{productName}</h1>
                   <div className="price details-price pb-30 mb-20">
-                    <span>$700.00</span>
-                    <span className="old-price">$820.00</span>
+                    <span>${product.price}.00</span>
+                    <span className="old-price">${product.oldPrice}.00</span>
                   </div>
                 </div>
                 <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
+                  {product.description ||
+                    "Dòng cà phê thượng hạng được rang xay thủ công, mang lại hương vị nồng nàn và tỉnh táo cho ngày mới."}
                 </p>
                 <div className="product-cat mt-30 mb-30">
                   <span>Category: </span>
@@ -211,173 +201,91 @@ function ShopDetail() {
           <div className="row">
             <div className="col-12">
               <div className="bakix-details-tab">
-                <ul
-                  className="nav text-center justify-content-center pb-30 mb-50"
-                  id="myTab"
-                  role="tablist"
-                >
+                <ul className="nav text-center justify-content-center pb-30 mb-50">
                   <li className="nav-item">
-                    <a
-                      className="nav-link active"
-                      id="desc-tab"
-                      data-bs-toggle="tab"
-                      href="#id-desc"
-                      role="tab"
-                      aria-controls="home"
-                      aria-selected="true"
+                    <button
+                      className={`nav-link ${activeTab === "desc" ? "active" : ""}`}
+                      onClick={() => setActiveTab("desc")}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: activeTab === "desc" ? "#fe4a49" : "#666",
+                        fontWeight: "bold",
+                        borderBottom:
+                          activeTab === "desc" ? "2px solid #fe4a49" : "none",
+                      }}
                     >
                       Description
-                    </a>
+                    </button>
                   </li>
                   <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      id="id-add-in"
-                      data-bs-toggle="tab"
-                      href="#id-add"
-                      role="tab"
-                      aria-controls="profile"
-                      aria-selected="false"
+                    <button
+                      className={`nav-link ${activeTab === "info" ? "active" : ""}`}
+                      onClick={() => setActiveTab("info")}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: activeTab === "info" ? "#fe4a49" : "#666",
+                        fontWeight: "bold",
+                        borderBottom:
+                          activeTab === "info" ? "2px solid #fe4a49" : "none",
+                      }}
                     >
                       Additional Information
-                    </a>
+                    </button>
                   </li>
                   <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      id="id-r"
-                      data-bs-toggle="tab"
-                      href="#id-rev"
-                      role="tab"
-                      aria-controls="profile"
-                      aria-selected="false"
+                    <button
+                      className={`nav-link ${activeTab === "rev" ? "active" : ""}`}
+                      onClick={() => setActiveTab("rev")}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: activeTab === "rev" ? "#fe4a49" : "#666",
+                        fontWeight: "bold",
+                        borderBottom:
+                          activeTab === "rev" ? "2px solid #fe4a49" : "none",
+                      }}
                     >
                       Reviews(10)
-                    </a>
+                    </button>
                   </li>
                 </ul>
               </div>
-              <div className="tab-content" id="myTabContent">
-                <div
-                  className="tab-pane fade show active"
-                  id="id-desc"
-                  role="tabpanel"
-                  aria-labelledby="desc-tab"
-                >
-                  <div className="event-text mb-40">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum. Sed ut
-                      perspiciatis unde omnis iste natus error sit voluptatem
-                      accusantium doloremque laudantium, totam rem aperiam,
-                      eaque ipsa quae ab illo inventore veritatis et quasi
-                      architecto beatae vitae dicta sunt explicabo. Nemo enim
-                      ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-                      fugit, sed quia consequuntur magni dolores eos qui ratione
-                      voluptatem sequi nesciunt. Neque porro quisquam est, qui
-                      dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                      velit, sed quia non numquam eius modi tempora incidunt ut
-                      labore et dolore magnam aliquam quaerat voluptatem.
-                    </p>
-                    <p>
-                      Excepteur sint occaecat cupidatat non proident, sunt in
-                      culpa qui officia deserunt mollit anim id est laborum. Sed
-                      ut perspiciatis unde omnis iste natus error sit voluptatem
-                      accusantium doloremque laudantium, totam rem aperiam,
-                      eaque ipsa quae ab illo inventore veritatis et quasi
-                      architecto beatae vitae dicta sunt explicabo. Nemo enim
-                      ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-                      fugit, sed quia consequuntur magni dolores eos qui ratione
-                      voluptatem sequi nesciunt. Neque porro quisquam est, qui
-                      dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                      velit, sed quia non numquam eius modi tempora.
-                    </p>
+              <div
+                className="tab-content"
+                style={{
+                  padding: "20px",
+                  background: "#fff",
+                  borderRadius: "10px",
+                }}
+              >
+                {activeTab === "desc" && (
+                  <div className="animate-fade">
+                    <p>{product.description || "Dòng cà phê thượng hạng..."}</p>
                   </div>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="id-add"
-                  role="tabpanel"
-                  aria-labelledby="id-add-in"
-                >
-                  <div className="additional-info">
-                    <div className="table-responsive">
-                      <h4>Additional information</h4>
-                      <table className="table">
-                        <tbody>
-                          <tr>
-                            <th>Weight</th>
-                            <td className="product_weight">1.4 oz</td>
-                          </tr>
-                          <tr>
-                            <th>Dimensions</th>
-                            <td className="product_dimensions">
-                              62 × 56 × 12 in
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>Size</th>
-                            <td className="product_dimensions">
-                              XL, XXL, LG, SM, MD
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                )}
+                {activeTab === "info" && (
+                  <div className="animate-fade">
+                    <table className="table">
+                      <tbody>
+                        <tr>
+                          <th>Weight</th>
+                          <td>1.4 oz</td>
+                        </tr>
+                        <tr>
+                          <th>Category</th>
+                          <td>{product.category}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="id-rev"
-                  role="tabpanel"
-                  aria-labelledby="id-r"
-                >
-                  <div className="additional-info">
-                    <div className="event-text mb-40">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum. Sed ut perspiciatis unde omnis iste
-                        natus error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                        inventore veritatis et quasi architecto beatae vitae
-                        dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                        voluptas sit aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione voluptatem
-                        sequi nesciunt. Neque porro quisquam est, qui dolorem
-                        ipsum quia dolor sit amet, consectetur, adipisci velit,
-                        sed quia non numquam eius modi tempora incidunt ut
-                        labore et dolore magnam aliquam quaerat voluptatem.
-                      </p>
-                      <p>
-                        Excepteur sint occaecat cupidatat non proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum.
-                        Sed ut perspiciatis unde omnis iste natus error sit
-                        voluptatem accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis et
-                        quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                        enim ipsam voluptatem quia voluptas sit aspernatur aut
-                        odit aut fugit, sed quia consequuntur magni dolores eos
-                        qui ratione voluptatem sequi nesciunt. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor sit amet,
-                        consectetur, adipisci velit, sed quia non numquam eius
-                        modi tempora.
-                      </p>
-                    </div>
+                )}
+                {activeTab === "rev" && (
+                  <div className="animate-fade">
+                    <p>No reviews yet for this product.</p>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

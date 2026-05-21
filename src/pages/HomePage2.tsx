@@ -30,6 +30,29 @@ function HomePage2() {
           speed: 1000,
           slidesToShow: 2,
           slidesToScroll: 2,
+          responsive: [
+            {
+              breakpoint: 992,
+              settings: { slidesToShow: 1, slidesToScroll: 1 },
+            },
+            {
+              breakpoint: 767,
+              settings: { slidesToShow: 1, slidesToScroll: 1 },
+            },
+          ],
+        });
+      }
+
+      // Khởi tạo Isotope Grid Layout
+      if ($(".grid").length > 0) {
+        $(".grid").imagesLoaded(function () {
+          $(".grid").isotope({
+            itemSelector: ".grid-item",
+            percentPosition: true,
+            masonry: {
+              columnWidth: ".grid-sizer",
+            },
+          });
         });
       }
     }
@@ -38,6 +61,7 @@ function HomePage2() {
         $(".slider-active").slick("unslick");
       if ($ && $(".testimonial-active").hasClass("slick-initialized"))
         $(".testimonial-active").slick("unslick");
+      if ($ && $(".grid").data("isotope")) $(".grid").isotope("destroy");
     };
   }, []);
 
@@ -63,6 +87,29 @@ function HomePage2() {
 
   return (
     <main>
+      <style>{`
+        .grid.col2 .grid-item {
+          width: 25%;
+          padding: 5px;
+          box-sizing: border-box;
+        }
+        .grid.col2 .grid-sizer {
+          width: 25%;
+        }
+        .grid.col2 .grid-item:first-child {
+          width: 50%;
+        }
+        .gallery-image {
+          border-radius: 15px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gallery-image img { transition: 0.5s; }
+        .gallery-image:hover img { transform: scale(1.1); }
+        @media (max-width: 768px) {
+          .grid.col2 .grid-item { width: 50%; }
+        }
+      `}</style>
       {/* slider-area */}
       <section id="home" className="slider-area fix p-relative">
         <div className="slider-active" style={{ background: "#101010" }}>
@@ -601,7 +648,7 @@ function HomePage2() {
             <div className="col-lg-4 col-md-12">
               <div className="product mb-40">
                 <div className="product__img">
-                  <Link to="/shop-detail">
+                  <Link to="/shop-detail/1">
                     <img src="/img/shop/img1.jpg" alt="" />
                   </Link>
                   <div className="product-action text-center">
@@ -615,7 +662,7 @@ function HomePage2() {
                         )
                       }
                       style={{
-                        background: "#3f271e",
+                        background: "#fe4a49",
                         color: "#fff",
                         border: "none",
                         padding: "10px 20px",
@@ -629,7 +676,7 @@ function HomePage2() {
                 </div>
                 <div className="product__content pt-30">
                   <h4 className="pro-title">
-                    <Link to="/shop-detail">Caramel Macchiato</Link>
+                    <Link to="/shop-detail/1">Caramel Macchiato</Link>
                   </h4>
                   <div className="price">
                     <span className="old-price">$20</span>
@@ -1109,6 +1156,7 @@ function HomePage2() {
             <div className="col-lg-12">
               <div className="masonry-gallery-huge">
                 <div className="grid col2">
+                  <div className="grid-sizer"></div>
                   <div className="grid-item financial">
                     <a
                       className="popup-image"

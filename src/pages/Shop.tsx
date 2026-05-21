@@ -3,85 +3,24 @@ import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import { toast } from "react-toastify";
 import Breadcrumb from "../components/Breadcrumb";
-
-const products = [
-  {
-    id: 1,
-    name: "Bakari Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img4.jpg",
-    category: "Chair",
-  },
-  {
-    id: 2,
-    name: "Romada Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img5.jpg",
-    category: "Cloths",
-  },
-  {
-    id: 3,
-    name: "Sikkar Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img6.jpg",
-    category: "Light",
-  },
-  {
-    id: 4,
-    name: "Minners Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img7.jpg",
-    category: "Headphone",
-  },
-  {
-    id: 5,
-    name: "Dolando Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img8.jpg",
-    category: "Table",
-  },
-  {
-    id: 6,
-    name: "Romada Product 2",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img9.jpg",
-    category: "Cloths",
-  },
-  {
-    id: 7,
-    name: "Medidove Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img1.jpg",
-    category: "Cloths",
-  },
-  {
-    id: 8,
-    name: "Legend Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img2.jpg",
-    category: "Cloths",
-  },
-  {
-    id: 9,
-    name: "Akari Product",
-    price: 95,
-    oldPrice: 120,
-    image: "img/shop/img3.jpg",
-    category: "Table",
-  },
-];
+import { products } from "./products";
 
 function Shop() {
   const { addToCart, totalItems } = useCart();
   const [addedId, setAddedId] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  // Lấy danh sách các danh mục duy nhất từ dữ liệu sản phẩm
+  const categories = [
+    "All",
+    ...Array.from(new Set(products.map((p) => p.category))),
+  ];
+
+  // Lọc sản phẩm dựa trên danh mục đang chọn
+  const filteredProducts =
+    activeCategory === "All"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
   const handleAddToCart = (product: (typeof products)[0]) => {
     addToCart(product);
@@ -95,6 +34,22 @@ function Shop() {
 
   return (
     <main>
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-product {
+          animation: fadeInUp 0.5s ease forwards;
+          opacity: 0; /* Đảm bảo bắt đầu từ ẩn */
+        }
+      `}</style>
       <Breadcrumb title="Shop" />
 
       {/* shop-area */}
@@ -104,7 +59,7 @@ function Shop() {
             <div className="col-lg-6 col-sm-6">
               <h6 className="mt-20 mb-30">Showing 1–9 of 9 results</h6>
             </div>
-            <div className="col-lg-6 col-sm-6 text-right">
+            <div className="col-lg-6 col-sm-6 text-md-right text-center">
               {/* Cart Icon */}
               <Link
                 to="/cart"
@@ -146,9 +101,43 @@ function Shop() {
             </div>
           </div>
 
-          <div className="row align-items-center">
-            {products.map((product) => (
-              <div key={product.id} className="col-lg-4 col-md-6">
+          {/* Category Filter Buttons */}
+          <div className="row mb-50">
+            <div className="col-lg-12">
+              <div className="shop-filter-buttons text-center">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    style={{
+                      background:
+                        activeCategory === cat ? "#fe4a49" : "transparent",
+                      color: activeCategory === cat ? "#fff" : "#3f271e",
+                      border: `1px solid ${activeCategory === cat ? "#fe4a49" : "#ddd"}`,
+                      padding: "8px 25px",
+                      margin: "5px",
+                      borderRadius: "30px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      textTransform: "capitalize",
+                    }}
+                    className={activeCategory === cat ? "active" : ""}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="row align-items-center" key={activeCategory}>
+            {filteredProducts.map((product, index) => (
+              <div
+                key={product.id}
+                className="col-lg-4 col-md-6 animate-product"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <div
                   className="product mb-40"
                   style={{
