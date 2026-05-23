@@ -21,39 +21,29 @@
   <body>
     <div id="root"></div>
 
-    <!--
-      THỨ TỰ QUAN TRỌNG:
-      1. jQuery + plugins phải load TRƯỚC (không defer) để window.$ có sẵn
-      2. React (module) load song song nhưng chạy sau khi DOM ready
-      3. main.js của template BỎ đi — React sẽ tự init plugins qua useEffect
-    -->
-
-    <!-- jQuery core - KHÔNG defer, phải có trước tất cả -->
+    <!-- jQuery core - Nạp đầu tiên bắt buộc -->
     <script src="/js/vendor/jquery-3.6.0.min.js"></script>
 
-    <!-- Plugins - defer OK vì jQuery đã có sẵn -->
-    <script src="/js/vendor/modernizr-3.5.0.min.js" defer></script>
-    <script src="/js/popper.min.js" defer></script>
-    <script src="/js/bootstrap.min.js" defer></script>
-    <script src="/js/slick.min.js" defer></script>
-    <script src="/js/ajax-form.js" defer></script>
-    <script src="/js/paroller.js" defer></script>
-    <script src="/js/wow.min.js" defer></script>
-    <script src="/js/js_isotope.pkgd.min.js" defer></script>
-    <script src="/js/imagesloaded.min.js" defer></script>
-    <script src="/js/parallax.min.js" defer></script>
-    <script src="/js/jquery.waypoints.min.js" defer></script>
-    <script src="/js/jquery.counterup.min.js" defer></script>
-    <script src="/js/jquery.scrollUp.min.js" defer></script>
-    <script src="/js/jquery.meanmenu.min.js" defer></script>
-    <script src="/js/parallax-scroll.js" defer></script>
-    <script src="/js/jquery.magnific-popup.min.js" defer></script>
-    <script src="/js/element-in-view.js" defer></script>
+    <!-- Plugins - Đã loại bỏ defer để nạp ngay lập tức nhằm tránh lỗi sập hàm ở React -->
+    <script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/ajax-form.js"></script>
+    <script src="/js/paroller.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/js_isotope.pkgd.min.js"></script>
+    <script src="/js/imagesloaded.min.js"></script>
+    <script src="/js/parallax.min.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/jquery.scrollUp.min.js"></script>
+    <script src="/js/jquery.meanmenu.min.js"></script>
+    <script src="/js/parallax-scroll.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="/js/element-in-view.js"></script>
 
-    <!-- BỎ main.js của template — React hook sẽ thay thế -->
-    <!-- <script src="/js/main.js" defer></script> -->
-
-    <!-- React - load sau jQuery -->
+    <!-- React module - Sẽ kích hoạt sau khi toàn bộ thư viện nền ở trên đã sẵn sàng -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
