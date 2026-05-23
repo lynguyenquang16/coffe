@@ -10,14 +10,17 @@ function Header() {
     const $ = (window as any).$;
     if (!$) return;
 
-    // Khởi tạo Mobile Menu (MeanMenu)
-    const mobileMenu = $("#mobile-menu");
-    if (mobileMenu.length > 0) {
-      mobileMenu.meanmenu({
-        meanMenuContainer: ".mobile-menu",
-        meanScreenWidth: "992",
-      });
-    }
+    // Sử dụng timeout nhỏ để đảm bảo React đã render xong DOM trước khi jQuery can thiệp
+    const timer = setTimeout(() => {
+      const mobileMenu = $("#mobile-menu");
+      // Kiểm tra nếu menu chưa được khởi tạo (tránh bị lặp menu)
+      if (mobileMenu.length > 0 && $(".mean-nav").length === 0) {
+        mobileMenu.meanmenu({
+          meanMenuContainer: ".mobile-menu",
+          meanScreenWidth: "992",
+        });
+      }
+    }, 200);
 
     // Hiệu ứng Sticky Header khi cuộn
     const handleScroll = () => {
@@ -32,9 +35,12 @@ function Header() {
     $(window).on("scroll", handleScroll);
 
     return () => {
+      clearTimeout(timer);
       $(window).off("scroll", handleScroll);
-      // Xóa menu mobile cũ khi component unmount hoặc chuyển trang để tránh bị lặp
-      $(".mean-container").remove();
+      // Dọn dẹp các phần tử MeanMenu tạo ra để tránh lỗi khi quay lại trang
+      $(".mean-bar, .mean-push").remove();
+      // Hiển thị lại menu gốc nếu nó bị plugin ẩn đi
+      $("#mobile-menu").show();
     };
   }, [location]); // Chạy lại khi chuyển trang để reset menu mobile
 

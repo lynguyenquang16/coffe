@@ -1,3 +1,5 @@
+import { products } from "./products";
+import { products } from "./products";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";

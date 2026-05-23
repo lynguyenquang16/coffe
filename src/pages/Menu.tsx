@@ -1,3 +1,5 @@
+import { products } from "./products";
+import { products } from "./products";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import Newsletter from "../components/Newsletter";
