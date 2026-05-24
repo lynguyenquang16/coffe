@@ -1,1 +1,21 @@
-import { useEffect } from "react";\nimport { useLocation } from "react-router-dom";\n\nexport default function useJQueryPlugins() {\n  const location = useLocation();\n  useEffect(() => {\n    const timer = setTimeout(() => {\n      const w = window as any;\n      if (w.$ && w.$.fn && w.$.fn.isotope) {\n        try {\n          const $grid = w.$(".grid, .home-blog-active");\n          if ($grid.length) {\n            $grid.isotope({ itemSelector: ".col-lg-4, .col-md-12", percentPosition: true });\n            $grid.isotope("layout");\n          }\n        } catch (e) { console.log(e); }\n      }\n    }, 800);\n    return () => clearTimeout(timer);\n  }, [location]);\n}
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export function useJQueryPlugins() {
+  const location = useLocation();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const w = window as any;
+      if (w.$ && w.$.fn && w.$.fn.isotope) {
+        try {
+          const $grid = w.$(".grid, .home-blog-active");
+          if ($grid.length) {
+            $grid.isotope({ itemSelector: ".col-lg-4, .col-md-12", percentPosition: true });
+            $grid.isotope("layout");
+          }
+        } catch (e) { console.log(e); }
+      }
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [location]);
+}
